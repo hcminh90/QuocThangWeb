@@ -12,5 +12,6 @@ CREATE TABLE users (
     avatar VARCHAR(255),
     social_url VARCHAR(500),
     status VARCHAR(50),
+	status2 VARCHAR(50),
     PRIMARY KEY (id)
 );
