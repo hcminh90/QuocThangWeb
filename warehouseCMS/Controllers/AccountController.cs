@@ -5,13 +5,24 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using warehouseCMS.Data;
 using warehouseCMS.Models;
 
 namespace warehouseCMS.Controllers
 {
     public class AccountController : Controller
     {
+        
+        private DataAccess _da;
+
+        private IHostingEnvironment _hostingEnviroment;
+        public AccountController(DataAccess da, IHostingEnvironment hostingEnviroment)
+        {
+            _da = da;
+            _hostingEnviroment = hostingEnviroment;
+        }
         public IActionResult Index()
         {
             return View();
@@ -70,6 +81,7 @@ namespace warehouseCMS.Controllers
             return View();
         }
 
+        [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();
@@ -85,6 +97,11 @@ namespace warehouseCMS.Controllers
 
         public bool IdentityUser(string username, string password)
         {
+            string sqlText = "SELECT * FROM warehousecms.users WHERE user_name = @username;";
+            Dictionary<string, string> param = new Dictionary<string, string>();
+            param.Add("username",username);
+            DbFetchOutData outdata = _da.FecthQuery(sqlText, param);
+            //ViewData["CbPost"] = outdata;
             return true;
         }
     }

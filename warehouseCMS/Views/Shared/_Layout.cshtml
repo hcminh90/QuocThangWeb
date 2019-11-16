@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@using System
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -16,8 +18,12 @@
               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"/>
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/font-awesome.4.7.0.min.css">
 </head>
 <body>
+    @{
+        var loggedInUser = Context.User;
+    }
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
@@ -27,6 +33,32 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav">
+                        @if (!string.IsNullOrEmpty(loggedInUser.Identity.Name))
+                        {
+                            <li class="nav-item">
+                                <i class="fa fa-bell nav-link text-dark" style="font-size:18px;color:#707070"></i>
+                            </li>
+                            <li class="nav-item">
+                                <a  class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Index"><i class="fa fa-user-circle-o" style="font-size:20px;color:#707070"></i> Hello @loggedInUser.Identity.Name!</a>
+                            </li>
+                            <li class="nav-item">
+                                <form class="form-inline" method = "post" asp-controller = "Account" asp-action = "Logout">
+                                    <button  type="submit" class="nav-link btn btn-link text-dark"><i class="fa fa-sign-out" style="font-size:20px;color:#707070"></i>Logout</button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <!--<li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Account/Register">Register</a>
+                            </li>
+                            -->
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login"><i class="fa fa-sign-in" style="font-size:20px;color:#707070"></i> Login</a>
+                            </li>
+                        }
+                    </ul>
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
