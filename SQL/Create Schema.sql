@@ -1,1 +1,1 @@
-CREATE SCHEMA 'warehousecms' ;
+CREATE SCHEMA warehousecms;
