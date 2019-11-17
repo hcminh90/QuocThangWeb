@@ -1,7 +1,16 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using System
+@{
+    ViewData["Title"] = "Đăng nhập hệ thống";
 }
-
+@{
+    var error = ViewData["Error"] as string;
+    if(!string.IsNullOrEmpty(error))
+    {
+        <div class="error-msg">
+            <i class="fa fa-warning" style="font-size:20px;color:red"></i> @error
+        </div>
+    }
+}
 <div class="text-center">
     <div class="loginPanel">
         <div class="loginTitle">Đăng nhập hệ thống</div>

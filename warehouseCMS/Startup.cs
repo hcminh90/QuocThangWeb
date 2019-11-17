@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using warehouseCMS.Extensions;
+using warehouseCMS.Services;
 
 namespace warehouseCMS
 {
@@ -40,6 +41,7 @@ namespace warehouseCMS
             }).AddCookie(options => { options.LoginPath = "/Account/Login"; });
 
             services.AddMySql(Configuration);
+            services.AddScoped<IEncrypter, Encrypter>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

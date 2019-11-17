@@ -30,3 +30,7 @@ C:\Users\Administrator\Documents\Visual Code\warehouseCMS\obj\Debug\netcoreapp2.
 C:\Users\Administrator\Documents\Visual Code\warehouseCMS\obj\Debug\netcoreapp2.2\warehouseCMS.csproj.CopyComplete
 C:\Users\Administrator\Documents\Visual Code\warehouseCMS\obj\Debug\netcoreapp2.2\Razor\Views\Account\Index.g.cshtml.cs
 C:\Users\Administrator\Documents\Visual Code\warehouseCMS\obj\Debug\netcoreapp2.2\Razor\Views\Account\Login.g.cshtml.cs
+C:\Users\Administrator\Documents\Visual Code\warehouseCMS\obj\Debug\netcoreapp2.2\Razor\Views\WareHouse\Index.g.cshtml.cs
+C:\Users\Administrator\Documents\Visual Code\warehouseCMS\obj\Debug\netcoreapp2.2\Razor\Views\WareHouse\Input.g.cshtml.cs
+C:\Users\Administrator\Documents\Visual Code\warehouseCMS\obj\Debug\netcoreapp2.2\Razor\Views\WareHouse\Output.g.cshtml.cs
+C:\Users\Administrator\Documents\Visual Code\warehouseCMS\obj\Debug\netcoreapp2.2\Razor\Views\WareHouse\Report.g.cshtml.cs

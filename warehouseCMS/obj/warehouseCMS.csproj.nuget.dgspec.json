@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\Administrator\\Documents\\Visual Code\\warehouseCMS\\warehouseCMS.csproj": {}
+    "C:\\Users\\Administrator\\Documents\\Visual Code\\warehouseCMS\\warehouseCMS.csproj": {}
   },
   "projects": {
-    "c:\\Users\\Administrator\\Documents\\Visual Code\\warehouseCMS\\warehouseCMS.csproj": {
+    "C:\\Users\\Administrator\\Documents\\Visual Code\\warehouseCMS\\warehouseCMS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\Administrator\\Documents\\Visual Code\\warehouseCMS\\warehouseCMS.csproj",
+        "projectUniqueName": "C:\\Users\\Administrator\\Documents\\Visual Code\\warehouseCMS\\warehouseCMS.csproj",
         "projectName": "warehouseCMS",
-        "projectPath": "c:\\Users\\Administrator\\Documents\\Visual Code\\warehouseCMS\\warehouseCMS.csproj",
+        "projectPath": "C:\\Users\\Administrator\\Documents\\Visual Code\\warehouseCMS\\warehouseCMS.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\Administrator\\Documents\\Visual Code\\warehouseCMS\\obj\\",
+        "outputPath": "C:\\Users\\Administrator\\Documents\\Visual Code\\warehouseCMS\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

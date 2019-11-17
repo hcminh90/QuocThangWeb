@@ -2991,6 +2991,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "Views\\WareHouse\\Index.cshtml",
+      "TargetPath": "Views\\WareHouse\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "Views\\Shared\\_CookieConsentPartial.cshtml",
       "TargetPath": "Views\\Shared\\_CookieConsentPartial.cshtml",
       "FileKind": "mvc"
@@ -3006,8 +3011,23 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "Views\\WareHouse\\Report.cshtml",
+      "TargetPath": "Views\\WareHouse\\Report.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\WareHouse\\Input.cshtml",
+      "TargetPath": "Views\\WareHouse\\Input.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
       "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\WareHouse\\Output.cshtml",
+      "TargetPath": "Views\\WareHouse\\Output.cshtml",
       "FileKind": "mvc"
     }
   ],

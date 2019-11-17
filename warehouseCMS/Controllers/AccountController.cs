@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using warehouseCMS.Data;
 using warehouseCMS.Models;
+using warehouseCMS.Services;
 
 namespace warehouseCMS.Controllers
 {
@@ -18,10 +19,14 @@ namespace warehouseCMS.Controllers
         private DataAccess _da;
 
         private IHostingEnvironment _hostingEnviroment;
-        public AccountController(DataAccess da, IHostingEnvironment hostingEnviroment)
+        private readonly IEncrypter _encrypter;
+        public string Password { get; protected set; }
+        public string Salt { get; protected set; }
+        public AccountController(DataAccess da, IHostingEnvironment hostingEnviroment, IEncrypter encrypter)
         {
             _da = da;
             _hostingEnviroment = hostingEnviroment;
+            _encrypter = encrypter;
         }
         public IActionResult Index()
         {
@@ -78,6 +83,8 @@ namespace warehouseCMS.Controllers
                 //Just redirect to our index after logging in. 
                 return Redirect("/");//RedirectToAction("Home","Index");
             }
+            
+            ViewData["Error"] = "Tên đăng nhập hoặc mật khẩu không hợp lệ!";
             return View();
         }
 
@@ -97,12 +104,43 @@ namespace warehouseCMS.Controllers
 
         public bool IdentityUser(string username, string password)
         {
+            if(string.IsNullOrWhiteSpace(password)){
+                return false;
+            }
             string sqlText = "SELECT * FROM warehousecms.users WHERE user_name = @username;";
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("username",username);
             DbFetchOutData outdata = _da.FecthQuery(sqlText, param);
             //ViewData["CbPost"] = outdata;
-            return true;
+            /*SetPassWord(password, _encrypter);
+            Console.WriteLine("Salt: " + Salt);
+            Console.WriteLine("Password: " + Password);*/
+            if(outdata.Data.Count>0)
+            {
+                var dbSalt = outdata.Data[0]["SALT"];
+                var dbPass = outdata.Data[0]["PASSWORD"];
+                if(dbPass.Equals(_encrypter.GetHash(password,dbSalt)))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
         }
+
+        public void SetPassWord(string password, IEncrypter encrypter)
+        {
+            Salt = encrypter.GetSalt(password);
+            Password = encrypter.GetHash(password, Salt);
+        }
+
+        public bool ValidatePassword(string password, IEncrypter encrypter)
+        => Password.Equals(encrypter.GetHash(password,Salt));
     }
 }

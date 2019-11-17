@@ -133,7 +133,7 @@ namespace warehouseCMS.Repository
             Dictionary<string, string> row = null;
             int colunms = reader.FieldCount;
             for (int colidx = 0; colidx <= reader.FieldCount - 1; colidx++) {
-                header.Add(colidx, reader.GetName(colidx));
+                header.Add(colidx, reader.GetName(colidx).ToUpper());
             }
             OutData.Header = header;
             while (reader.Read())
@@ -143,7 +143,7 @@ namespace warehouseCMS.Repository
                         string colName = reader.GetName(colidx);
                         if(!reader.IsDBNull(colidx))
                         {
-                            row.Add(colName, reader.GetString(colidx));
+                            row.Add(colName.ToUpper(), reader.GetString(colidx));
                         }
                         else
                         {

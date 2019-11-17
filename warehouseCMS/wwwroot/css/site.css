@@ -66,6 +66,10 @@ body {
   box-shadow: #666 0px 2px 3px;
   behavior: url(/css/pie/PIE.htc);
   padding: 2px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 .loginTitle{
   height: 30px;
@@ -109,4 +113,55 @@ body {
   border-radius: 15px;
   behavior: url(/css/pie/PIE.htc);
   padding: 0px 10px 0px 10px;
+}
+.error-msg{
+  border: 1px solid #C63B2F;
+  background-color: #EAA099;
+  color: #C63B2F;
+}
+.label-page{
+  text-align: left;
+  border-bottom: 1px solid #696;
+  margin-bottom: 5px;
+}
+.input-area{
+  text-align: left;
+  float: left;
+  border: 1px solid #696;
+  width: 81.5%;
+}
+
+.input-area input[type="text"]{
+  border: 1px solid #696;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  behavior: url(/css/pie/PIE.htc);
+  padding: 0px 10px 0px 10px;
+}
+
+.input-area input[type="submit"]{
+  padding: 3px 10px 3px 10px;
+  border: 1px solid #696;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  -webkit-box-shadow: #666 0px 2px 3px;
+  -moz-box-shadow: #666 0px 2px 3px;
+  box-shadow: #666 0px 2px 3px;
+  behavior: url(/css/pie/PIE.htc);
+  background: #D6EC83;
+  background: -webkit-gradient(linear, 0 0, 0 bottom, from(#D6EC83), to(#8FE269));
+  background: -webkit-linear-gradient(#D6EC83, #8FE269);
+  background: -moz-linear-gradient(#D6EC83, #8FE269);
+  background: -ms-linear-gradient(#D6EC83, #8FE269);
+  background: -o-linear-gradient(#D6EC83, #8FE269);
+  background: linear-gradient(#D6EC83, #8FE269);
+  -pie-background: linear-gradient(#D6EC83, #8FE269);
+}
+.menu{
+  float: left;
+  border: 1px solid #696;
+  margin-right: 5px;
+  width: 200px;
 }
