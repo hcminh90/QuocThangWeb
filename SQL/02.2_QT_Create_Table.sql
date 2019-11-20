@@ -5,58 +5,12 @@ use qt;
 /* Created on:     2019-11-18 22:22:29                          */
 /*==============================================================*/
 
-
-alter table PRODUCTS_HIST 
-   drop foreign key FK_PRODUCTS_REFERENCE_PRODUCTS;
-
-alter table TRANSCATIONS 
-   drop foreign key FK_TRANSCAT_REFERENCE_PRODUCTS;
-
-alter table TRANSCATIONS 
-   drop foreign key FK_TRANSCAT_REFERENCE_CUSTOMER;
-
-alter table TRANSCATIONS 
-   drop foreign key FK_TRANSCAT_REFERENCE_USERS;
-
-alter table USERS 
-   drop foreign key FK_USERS_REFERENCE_ROLES;
-
-drop table if exists CUSTOMERS;
-
-drop table if exists PRODUCTS;
-
-
-alter table PRODUCTS_HIST 
-   drop foreign key FK_PRODUCTS_REFERENCE_PRODUCTS;
-
-drop table if exists PRODUCTS_HIST;
-
-drop table if exists ROLES;
-
-
-alter table TRANSCATIONS 
-   drop foreign key FK_TRANSCAT_REFERENCE_PRODUCTS;
-
-alter table TRANSCATIONS 
-   drop foreign key FK_TRANSCAT_REFERENCE_CUSTOMER;
-
-alter table TRANSCATIONS 
-   drop foreign key FK_TRANSCAT_REFERENCE_USERS;
-
-drop table if exists TRANSCATIONS;
-
-
-alter table USERS 
-   drop foreign key FK_USERS_REFERENCE_ROLES;
-
-drop table if exists USERS;
-
 /*==============================================================*/
 /* Table: CUSTOMERS                                             */
 /*==============================================================*/
 create table CUSTOMERS
 (
-   CUST_ID              int not null  comment '',
+   CUST_ID              int not null auto_increment comment '',
    CUST_NAME            varchar(100)  comment '',
    CUST_TAX             varchar(20)  comment '',
    CUST_ADDRESS         varchar(100)  comment '',
@@ -70,12 +24,12 @@ create table CUSTOMERS
 /*==============================================================*/
 create table PRODUCTS
 (
-   PROD_ID              int not null  comment 'ma san pham',
+   PROD_ID              int not null auto_increment comment 'ma san pham',
    PROD_NAME            varchar(100)  comment '',
    PROD_DESC            varchar(100)  comment '',
    PROD_UNIT        varchar(100)  comment 'don vi tinh',
-   PROD_UNIT_PRICE  bigint  comment 'don gia',
-   PROD_AMOUNT          int  comment 'so luong',
+   PROD_UNIT_PRICE  bigint default 0  comment 'don gia',
+   PROD_AMOUNT          int default 0  comment 'so luong',
    primary key (PROD_ID)
 );
 
@@ -84,7 +38,7 @@ create table PRODUCTS
 /*==============================================================*/
 create table PRODUCTS_HIST
 (
-   HIST_ID              int not null  comment '',
+   HIST_ID              int not null auto_increment comment '',
    PROD_ID              int  comment '',
    PROD_NAME            varchar(100)  comment '',
    PROD_DESC            varchar(100)  comment '',
@@ -92,7 +46,7 @@ create table PRODUCTS_HIST
    PROD_AMOUNT          int  comment '',
    HIST_USER            varchar(100)  comment '',
    HIST_ACTION          varchar(100)  comment '',
-   HIST_TIMESTAMP       timestamp  comment '',
+   HIST_TIMESTAMP       timestamp default current_timestamp comment '',
    primary key (HIST_ID)
 );
 
@@ -101,7 +55,7 @@ create table PRODUCTS_HIST
 /*==============================================================*/
 create table ROLES
 (
-   ROLE_ID              int not null  comment '',
+   ROLE_ID              int not null auto_increment comment '',
    ROLE_NAME            varchar(100)  comment '',
    ROLE_DESC            varchar(100)  comment '',
    primary key (ROLE_ID)
@@ -130,7 +84,7 @@ create table TRANSCATIONS
 /*==============================================================*/
 create table USERS
 (
-   USER_ID              int not null  comment '',
+   USER_ID              int not null auto_increment comment '',
    ROLE_ID              int  comment '',
    USER_NAME            varchar(100)  comment '',
    USER_PEOPLE_ID       varchar(100)  comment '',
