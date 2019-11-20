@@ -90,6 +90,7 @@ create table USERS
    USER_PEOPLE_ID       varchar(100)  comment '',
    USER_BRITH_DATE      date  comment '',
    USER_PASSWORD        varchar(255)  comment '',
+   PWD_SALT             varchar(255)  comment 'encrypter pwd',
    USER_PHONE           varchar(100)  comment '',
    USER_ADDRESS         varchar(100)  comment '',
    USER_CREATE_TIME     varchar(100)  comment '',
