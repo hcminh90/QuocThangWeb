@@ -1,6 +1,6 @@
 DELIMITER $$
 
-CREATE PROCEDURE GenTax(out outtax_id varchar(100))
+CREATE PROCEDURE ProcGenTax(out outtax_id varchar(100))
 BEGIN
     declare current_tax varchar(20);
     declare i int;
