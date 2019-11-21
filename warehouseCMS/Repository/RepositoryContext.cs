@@ -54,6 +54,64 @@ namespace warehouseCMS.Repository
             return OutData;
         }
 
+        public List<ResultObj> ExecuteProcedure(string sqlText, List<ParamObj> param)
+        {
+            List<ResultObj> result = new List<ResultObj>();
+            DbConnection connection = null;
+            DbCommand cmd = null;
+            try
+            {
+                connection = _context.Database.GetDbConnection();
+                connection.Open();
+                cmd = connection.CreateCommand();
+                cmd.CommandText = sqlText;
+                foreach(var data in param){
+                    var pr = cmd.CreateParameter();
+                    pr.ParameterName = "@" + data.Name;
+                    if(data.Direction == ParameterDirection.Input)
+                    {
+                        pr.Value = data.Value;
+                    }
+                    pr.DbType = data.Type;
+                    pr.Direction = data.Direction;
+                    cmd.Parameters.Add(pr);
+                }
+                Console.WriteLine("Call procedure");
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.ExecuteNonQuery();
+                Console.WriteLine("Execute DONE");
+                foreach(var data in param){
+                    
+                    if(data.Direction == ParameterDirection.Output)
+                    {
+                        var val = Convert.ToString(cmd.Parameters["@"+data.Name].Value);
+                        ResultObj rs = new ResultObj(data.Name, val);
+                        result.Add(rs);
+                    }
+                }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Exception: " + e.Message);
+                //_logger.LogError(e.Message);
+            }
+            finally{
+                try
+                {
+                    if(cmd != null)
+                    {
+                        cmd.Dispose();
+                    }
+                    connection.Close();
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine("Exception: " + e.Message);
+                }
+            }
+            return result;
+        }
+
         public void ExecuteQuery(string queryType, string sqlText, Dictionary<string, string> param, ref DbFetchOutData outdata)
         {
             DbConnection connection = null;
@@ -71,6 +129,7 @@ namespace warehouseCMS.Repository
                         break;
                     case "INS" :
                         Console.WriteLine("Insert data");
+                        Console.WriteLine("sqlText :" + sqlText);
                         cmd.ExecuteNonQuery();
                         break;
                     case "UPD" :
@@ -80,12 +139,13 @@ namespace warehouseCMS.Repository
                     case "PRO" :
                         Console.WriteLine("Call procedure");
                         cmd.CommandType = CommandType.StoredProcedure;
-                        var reader = cmd.ExecuteReader();
+                        cmd.ExecuteNonQuery();
+                        /*var reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
                             Console.WriteLine(reader.GetString(1));
                         }
-                        reader.Close();
+                        reader.Close();*/
                         //outdata = BuildOutputReader(reader);
                         break;
                     default:
@@ -121,8 +181,11 @@ namespace warehouseCMS.Repository
                 var pr = cmd.CreateParameter();
                 pr.ParameterName = "@" + data.Key;
                 pr.Value = data.Value;
+                //pr.DbType = DbType.Int64;
+                //pr.Direction = ParameterDirection.Input;
                 cmd.Parameters.Add(pr);
             }
+            Console.WriteLine("BuildCommand DONE ");
             return cmd;
         }
         public DbFetchOutData BuildOutputReader(DbDataReader reader)

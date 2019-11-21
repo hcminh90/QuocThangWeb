@@ -107,7 +107,7 @@ namespace warehouseCMS.Controllers
             if(string.IsNullOrWhiteSpace(password)){
                 return false;
             }
-            string sqlText = "SELECT * FROM warehousecms.users WHERE user_name = @username;";
+            string sqlText = "SELECT * FROM users WHERE USER_PEOPLE_ID = @username;";
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("username",username);
             DbFetchOutData outdata = _da.FecthQuery(sqlText, param);
@@ -117,8 +117,8 @@ namespace warehouseCMS.Controllers
             Console.WriteLine("Password: " + Password);*/
             if(outdata.Data.Count>0)
             {
-                var dbSalt = outdata.Data[0]["SALT"];
-                var dbPass = outdata.Data[0]["PASSWORD"];
+                var dbSalt = outdata.Data[0]["PWD_SALT"];
+                var dbPass = outdata.Data[0]["USER_PASSWORD"];
                 if(dbPass.Equals(_encrypter.GetHash(password,dbSalt)))
                 {
                     return true;
