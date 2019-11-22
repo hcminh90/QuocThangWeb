@@ -16,7 +16,7 @@ BEGIN
     then 
 		set i = 1;
 	else
-		set i = convert(SUBSTRING_INDEX(current_tax,'-',-1),UNSIGNED INTEGER);
+		set i = convert(SUBSTRING_INDEX(current_tax,'-',-1),UNSIGNED INTEGER) + 1;
 	end if;
     
     set outtax_id = concat('PX-', lpad(i,8,'0'));
