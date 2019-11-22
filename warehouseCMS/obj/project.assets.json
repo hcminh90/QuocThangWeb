@@ -12892,31 +12892,28 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Administrator\\.nuget\\packages\\": {},
+    "C:\\Users\\hcmin\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\Administrator\\Documents\\Visual Code\\warehouseCMS\\warehouseCMS.csproj",
+      "projectUniqueName": "C:\\Users\\hcmin\\OneDrive\\Documents\\Visual studio code\\warehouseCMS\\warehouseCMS.csproj",
       "projectName": "warehouseCMS",
-      "projectPath": "c:\\Users\\Administrator\\Documents\\Visual Code\\warehouseCMS\\warehouseCMS.csproj",
-      "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\Administrator\\Documents\\Visual Code\\warehouseCMS\\obj\\",
+      "projectPath": "C:\\Users\\hcmin\\OneDrive\\Documents\\Visual studio code\\warehouseCMS\\warehouseCMS.csproj",
+      "packagesPath": "C:\\Users\\hcmin\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\hcmin\\OneDrive\\Documents\\Visual studio code\\warehouseCMS\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\hcmin\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.2"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "http://nuget.syncfusion.com/nuget_aspnetcore/nuget/getsyncfusionpackages/aspnetcore": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
