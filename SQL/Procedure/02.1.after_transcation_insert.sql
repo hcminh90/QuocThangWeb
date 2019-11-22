@@ -9,7 +9,7 @@ BEGIN
     from products
     where prod_id = NEW.prod_id;
     
-    CASE NEW.transaction_desc
+    CASE NEW.transaction
 		WHEN 'sell' THEN
 			set v_prod_amount = v_prod_amount - NEW.unit_amount;
         WHEN 'buy' THEN

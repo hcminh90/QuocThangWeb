@@ -9,7 +9,7 @@ BEGIN
     from products
     where prod_id = OLD.prod_id;
     
-    CASE OLD.transaction_desc
+    CASE OLD.transaction
 		WHEN 'sell' THEN
 			set v_prod_amount = v_prod_amount + OLD.unit_amount;
         WHEN 'buy' THEN
