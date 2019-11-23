@@ -7,7 +7,7 @@ BEGIN
     
     select distinct tax_id
     into current_tax
-    from transcations
+    from transactions
     where timestamp >= current_date - 30
     order by 1 desc
     limit 1;
