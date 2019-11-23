@@ -15,7 +15,8 @@ BEGIN
     where prod_id = NEW.prod_id;
     
     /*main proc*/
-    IF v_prod_unit_price = NEW.prod_unit_price THEN
+    IF v_prod_unit_price = NEW.prod_unit_price 
+		and NEW.unit_pay <= NEW.unit_price * NEW.unit_amount THEN
 		CASE NEW.transaction
 			WHEN 'sell' THEN
 				IF v_prod_amount >= NEW.unit_amount THEN
@@ -34,7 +35,7 @@ BEGIN
 		/*update prod_amount*/
 		update products set prod_amount = v_prod_amount where prod_id = NEW.prod_id;
 	ELSE
-		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Don gia goc da cap nhat!';
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Don gia goc da cap nhat hoac so tien thanh toan thuc te vuot qua thanh tien!';
     END IF;
 END$$
  
