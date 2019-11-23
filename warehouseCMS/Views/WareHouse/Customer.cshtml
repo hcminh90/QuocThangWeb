@@ -1,0 +1,79 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <div class="menu">
+        <div class="title">Menu</div>
+        <div class="menu-content">
+            <div>Danh sách khách hàng</div>
+            <div>Thêm khách hàng</div>
+        </div>
+    </div>
+    <div class="input-area">
+        @{
+            if(ViewBag.Error != "NO"){
+                if(ViewBag.Error == "SUCCESS"){
+                    <div class="success-msg">
+                        <i class="fa fa-check" style="font-size:20px;color:green;"></i> Thành công!
+                    </div>
+                }
+                else
+                {
+                    <div class="error-msg">
+                        <i class="fa fa-warning" style="font-size:20px;color:red"></i> @ViewBag.Error
+                    </div>
+                }
+            }
+        }
+        <form method = "post" asp-controller = "WareHouse" asp-action = "Customer" autocomplete="off">
+            <div class="form-panel">
+                <div class="title">Thông tin khách hàng/Nhà cung cấp</div>
+                <div class="form-row-r">
+                    <div class="col-25">
+                        <label for="CusName">Tên khách hàng: </label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="CusName" name ="CusName" placeholder="Nhập tên khách hàng.." autocomplete="off">
+                    </div>
+                </div>
+                <div class="form-row-r">
+                    <div class="col-25">
+                        <label for="TaxID">Mã số thuế: </label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="TaxID" name ="TaxID" placeholder="Mã số thuế.." autocomplete="off">
+                    </div>
+                </div>
+                <div class="form-row-r">
+                    <div class="col-25">
+                        <label for="CusAddr">Địa chỉ: </label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="CusAddr" name ="CusAddr" placeholder="Địa chỉ khách hàng.." autocomplete="off" autocomplete="false">
+                    </div>
+                </div>
+                <div class="form-row-r">
+                    <div class="col-25">
+                        <label for="CusPhone">Số điện thoại: </label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="CusPhone" name ="CusPhone" placeholder="Số điện thoại.." autocomplete="off" autocomplete="false">
+                    </div>
+                </div>
+                <div class="form-row-r">
+                    <div class="col-25">
+                        <label for="CusEmail">Email: </label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="CusEmail" name ="CusEmail" placeholder="Địa chỉ email.." autocomplete="off" autocomplete="false">
+                    </div>
+                </div>
+                
+            </div>
+            <div class="submit-area">
+                    <input type="submit" value="Lưu" style="width:150px;">
+            </div>
+        </form>
+    </div>
+</div>

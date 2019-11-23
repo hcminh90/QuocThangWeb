@@ -195,6 +195,52 @@ namespace warehouseCMS.Controllers
             return View();
         }
 
+        public IActionResult Customer()
+        {
+            ViewBag.Error="NO";
+            return View();
+        }
+
+        public IActionResult Product()
+        {
+            ViewBag.Error="NO";
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Customer(string CusName, string TaxID, string CusAddr, string CusPhone, string CusEmail)
+        {
+            DbFetchOutData outdata = new DbFetchOutData();
+            Dictionary<string, string> param;
+            string  sqlText = "INSERT INTO customers(CUST_NAME, CUST_TAX, CUST_ADDRESS, CUST_PHONE_NUMBER, CUST_EMAIL) values(@CUST_NAME, @CUST_TAX, @CUST_ADDRESS, @CUST_PHONE_NUMBER, @CUST_EMAIL)";
+            param = new Dictionary<string, string>();
+            param.Add("CUST_NAME",CusName);
+            param.Add("CUST_TAX",TaxID);
+            param.Add("CUST_ADDRESS",CusAddr);
+            param.Add("CUST_PHONE_NUMBER",CusPhone);
+            param.Add("CUST_EMAIL",CusEmail);
+            _da.ExecuteQuery("INS", sqlText, param, ref outdata);
+            ViewBag.Error="SUCCESS";
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Product(string ProdName, string ProdDesc, string ProdIUnit, string ProdPrice)
+        {
+            DbFetchOutData outdata = new DbFetchOutData();
+            Dictionary<string, string> param;
+            string  sqlText = "INSERT INTO products(PROD_NAME, PROD_DESC, PROD_UNIT, PROD_UNIT_PRICE, PROD_AMOUNT) values(@PROD_NAME, @PROD_DESC, @PROD_UNIT, @PROD_UNIT_PRICE, @PROD_AMOUNT)";
+            param = new Dictionary<string, string>();
+            param.Add("PROD_NAME",ProdName);
+            param.Add("PROD_DESC",ProdDesc);
+            param.Add("PROD_UNIT",ProdIUnit);
+            param.Add("PROD_UNIT_PRICE",ProdPrice);
+            param.Add("PROD_AMOUNT","0");
+            _da.ExecuteQuery("INS", sqlText, param, ref outdata);
+            ViewBag.Error="SUCCESS";
+            return View();
+        }
+
         public IActionResult Report()
         {
             return View();
