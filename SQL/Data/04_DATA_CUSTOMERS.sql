@@ -1,0 +1,8 @@
+/*
+-- Query: select * from qt.customers
+LIMIT 0, 1000
+
+-- Date: 2019-11-23 20:27
+*/
+INSERT INTO `qt`.`customers` (`CUST_ID`,`CUST_NAME`,`CUST_TAX`,`CUST_ADDRESS`,`CUST_PHONE_NUMBER`,`CUST_EMAIL`) VALUES (1,'THE VINh','879879789','TP VINH LONG','0809890809','thevinh@gmail.com');
+INSERT INTO `qt`.`customers` (`CUST_ID`,`CUST_NAME`,`CUST_TAX`,`CUST_ADDRESS`,`CUST_PHONE_NUMBER`,`CUST_EMAIL`) VALUES (2,'HOANG DUNG','797987987','TP RACH GIA','7987678687','hoangdung@gmail.com');
