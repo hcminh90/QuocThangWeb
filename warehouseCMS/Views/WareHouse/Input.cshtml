@@ -61,12 +61,15 @@
                         var dtProd = prod.Data;
                     }
                     <div class="col-75">
-                        <select id="ProductID">
+                        <select id="ProductID" onchange="prod_change()">
+                        <option value="">--Lựa chọn</option>
                         @foreach (var row in dtProd)
                         {
-                            <option value='@row["PROD_ID"]-@row["PROD_UNIT_PRICE"]'>@row["PROD_NAME"]</option>
+                            <option value='@row["PROD_ID"]-@row["PROD_UNIT_PRICE"]-@row["PROD_UNIT"]'>@row["PROD_NAME"]</option>
                         }
                         </select>
+                        Giá : <input type="text" id="pri" style="width:100px" disabled>
+                        Đơn vị tính: <input type="text" id="unit" style="width:60px" disabled>
                     </div>
                 </div>
                 <div class="form-row-r">
@@ -79,10 +82,18 @@
                 </div>
                 <div class="form-row-r">
                     <div class="col-25">
-                        <label for="Price">Thành tiền: </label>
+                        <label for="Price">Đơn giá: </label>
                     </div>
                     <div class="col-75">
-                        <input type="text" id="Price" autocomplete="off">
+                        <input type="text" id="Price" autocomplete="off" onblur="CalcPrice();">
+                    </div>
+                </div>
+                <div class="form-row-r">
+                    <div class="col-25">
+                        <label for="Amt">Thành tiền: </label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="Amt" disabled autocomplete="off">
                     </div>
                 </div>
                 <div class="form-row-r">

@@ -19,6 +19,7 @@ namespace warehouseCMS.Controllers
         public WareHouseController(DataAccess da)
         {
             _da = da;
+            //user_id = GetUserID();
         }
 
         public IActionResult Index()
@@ -41,25 +42,31 @@ namespace warehouseCMS.Controllers
             return View();
         }
 
+        public string GetUserID(string user_name)
+        {
+            
+            string sqlTextuser = "SELECT * FROM users WHERE USER_PEOPLE_ID = @username;";
+            Dictionary<string, string> paramUser = new Dictionary<string, string>();
+            paramUser.Add("username",user_name);
+            DbFetchOutData outuser = _da.FecthQuery(sqlTextuser, paramUser);
+            var userid = outuser.Data[0]["USER_ID"];
+            return userid;
+        }
+
         [HttpPost]
         public IActionResult Input(string CusID, string OrderInfo)
         {
             Console.WriteLine("CusID :" + CusID);
             Console.WriteLine("OrderInfo :" + OrderInfo);
             var loggedInUser = HttpContext.User;
-            var loggedInUserName = loggedInUser.Identity.Name;
-            string sqlTextuser = "SELECT * FROM users WHERE USER_PEOPLE_ID = @username;";
-            Dictionary<string, string> paramUser = new Dictionary<string, string>();
-            paramUser.Add("username",loggedInUserName);
-            DbFetchOutData outuser = _da.FecthQuery(sqlTextuser, paramUser);
-            var userid = outuser.Data[0]["USER_ID"];
-
+            var user_name = loggedInUser.Identity.Name;
+            var user_id = GetUserID(user_name);
             var taxid = "";
             var erro_no="000000";
             string[] trans = OrderInfo.Split(';');
             DbFetchOutData outdata = new DbFetchOutData();
             Dictionary<string, string> param;
-            string  sqlText = "INSERT INTO transcations(TAX_ID, PROD_ID, CUST_ID, USER_ID, TIMESTAMP, UNIT_PRICE, UNIT_AMOUNT, UNIT_PAY, TRANSACTION, TRANSACTION_DESC) values(@TAX_ID, @PROD_ID, @CUST_ID, @USER_ID, @TIMESTAMP, @UNIT_PRICE, @UNIT_AMOUNT, @UNIT_PAY, @TRANSACTION, @TRANSACTION_DESC)";
+            string  sqlText = "INSERT INTO transactions(TAX_ID, PROD_ID, CUST_ID, USER_ID, TIMESTAMP, UNIT_PRICE, UNIT_AMOUNT, UNIT_PAY, TRANSACTION, TRANSACTION_DESC, PROD_UNIT_PRICE) values(@TAX_ID, @PROD_ID, @CUST_ID, @USER_ID, @TIMESTAMP, @UNIT_PRICE, @UNIT_AMOUNT, @UNIT_PAY, @TRANSACTION, @TRANSACTION_DESC, @PROD_UNIT_PRICE)";
             if(trans.Length>0){
                 List<ParamObj> paramPro = new List<ParamObj>();
                 ParamObj par = new ParamObj("outtax_id","",DbType.String, ParameterDirection.Output);
@@ -82,13 +89,14 @@ namespace warehouseCMS.Controllers
                     param.Add("TAX_ID",taxid);
                     param.Add("PROD_ID",fields[1]);
                     param.Add("CUST_ID",CusID);
-                    param.Add("USER_ID",userid);
+                    param.Add("USER_ID",user_id);
                     param.Add("TIMESTAMP",DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                     param.Add("UNIT_PRICE",fields[3]);
                     param.Add("UNIT_AMOUNT",fields[2]);
                     param.Add("UNIT_PAY",fields[4]);
                     param.Add("TRANSACTION","buy");
                     param.Add("TRANSACTION_DESC","buy");
+                    param.Add("PROD_UNIT_PRICE",fields[5]);
                     _da.ExecuteQuery("INS", sqlText, param, ref outdata);
                 }
                 ViewBag.Error="SUCCESS";
@@ -132,19 +140,14 @@ namespace warehouseCMS.Controllers
             Console.WriteLine("CusID :" + CusID);
             Console.WriteLine("OrderInfo :" + OrderInfo);
             var loggedInUser = HttpContext.User;
-            var loggedInUserName = loggedInUser.Identity.Name;
-            string sqlTextuser = "SELECT * FROM users WHERE USER_PEOPLE_ID = @username;";
-            Dictionary<string, string> paramUser = new Dictionary<string, string>();
-            paramUser.Add("username",loggedInUserName);
-            DbFetchOutData outuser = _da.FecthQuery(sqlTextuser, paramUser);
-            var userid = outuser.Data[0]["USER_ID"];
-
+            var user_name = loggedInUser.Identity.Name;
+            var user_id = GetUserID(user_name);
             var taxid = "";
             var erro_no="000000";
             string[] trans = OrderInfo.Split(';');
             DbFetchOutData outdata = new DbFetchOutData();
             Dictionary<string, string> param;
-            string  sqlText = "INSERT INTO transcations(TAX_ID, PROD_ID, CUST_ID, USER_ID, TIMESTAMP, UNIT_PRICE, UNIT_AMOUNT, UNIT_PAY, TRANSACTION, TRANSACTION_DESC) values(@TAX_ID, @PROD_ID, @CUST_ID, @USER_ID, @TIMESTAMP, @UNIT_PRICE, @UNIT_AMOUNT, @UNIT_PAY, @TRANSACTION, @TRANSACTION_DESC)";
+            string  sqlText = "INSERT INTO transactions(TAX_ID, PROD_ID, CUST_ID, USER_ID, TIMESTAMP, UNIT_PRICE, UNIT_AMOUNT, UNIT_PAY, TRANSACTION, TRANSACTION_DESC, PROD_UNIT_PRICE) values(@TAX_ID, @PROD_ID, @CUST_ID, @USER_ID, @TIMESTAMP, @UNIT_PRICE, @UNIT_AMOUNT, @UNIT_PAY, @TRANSACTION, @TRANSACTION_DESC, @PROD_UNIT_PRICE)";
             if(trans.Length>0){
                 List<ParamObj> paramPro = new List<ParamObj>();
                 ParamObj par = new ParamObj("outtax_id","",DbType.String, ParameterDirection.Output);
@@ -167,13 +170,14 @@ namespace warehouseCMS.Controllers
                     param.Add("TAX_ID",taxid);
                     param.Add("PROD_ID",fields[1]);
                     param.Add("CUST_ID",CusID);
-                    param.Add("USER_ID",userid);
+                    param.Add("USER_ID",user_id);
                     param.Add("TIMESTAMP",DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                     param.Add("UNIT_PRICE",fields[3]);
                     param.Add("UNIT_AMOUNT",fields[2]);
                     param.Add("UNIT_PAY",fields[4]);
                     param.Add("TRANSACTION","sell");
                     param.Add("TRANSACTION_DESC","sell");
+                    param.Add("PROD_UNIT_PRICE",fields[5]);
                     _da.ExecuteQuery("INS", sqlText, param, ref outdata);
                 }
                 ViewBag.Error="SUCCESS";
@@ -201,8 +205,21 @@ namespace warehouseCMS.Controllers
             return View();
         }
 
+        public IActionResult CustomerShow()
+        {
+            string sqlText = "select * from customers a;";
+            Dictionary<string, string> param = new Dictionary<string, string>();
+            DbFetchOutData outdata = _da.FecthQuery(sqlText, param);
+            ViewData["Customers"] = outdata;
+            return View();
+        }
+
         public IActionResult Product()
         {
+            string sqlText = "select * from products a;";
+            Dictionary<string, string> param = new Dictionary<string, string>();
+            DbFetchOutData outdata = _da.FecthQuery(sqlText, param);
+            ViewData["Products"] = outdata;
             ViewBag.Error="NO";
             return View();
         }
@@ -227,15 +244,20 @@ namespace warehouseCMS.Controllers
         [HttpPost]
         public IActionResult Product(string ProdName, string ProdDesc, string ProdIUnit, string ProdPrice)
         {
+            var loggedInUser = HttpContext.User;
+            var user_name = loggedInUser.Identity.Name;
+            var user_id = GetUserID(user_name);
             DbFetchOutData outdata = new DbFetchOutData();
             Dictionary<string, string> param;
-            string  sqlText = "INSERT INTO products(PROD_NAME, PROD_DESC, PROD_UNIT, PROD_UNIT_PRICE, PROD_AMOUNT) values(@PROD_NAME, @PROD_DESC, @PROD_UNIT, @PROD_UNIT_PRICE, @PROD_AMOUNT)";
+            string  sqlText = "INSERT INTO products(PROD_NAME, PROD_DESC, PROD_UNIT, PROD_UNIT_PRICE, PROD_AMOUNT, PROD_LAST_USER_CHANGED, PROD_LAST_TIME_CHANGED) values(@PROD_NAME, @PROD_DESC, @PROD_UNIT, @PROD_UNIT_PRICE, @PROD_AMOUNT, @PROD_LAST_USER_CHANGED, @PROD_LAST_TIME_CHANGED)";
             param = new Dictionary<string, string>();
             param.Add("PROD_NAME",ProdName);
             param.Add("PROD_DESC",ProdDesc);
             param.Add("PROD_UNIT",ProdIUnit);
             param.Add("PROD_UNIT_PRICE",ProdPrice);
             param.Add("PROD_AMOUNT","0");
+            param.Add("PROD_LAST_USER_CHANGED",user_id);
+            param.Add("PROD_LAST_TIME_CHANGED",DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
             _da.ExecuteQuery("INS", sqlText, param, ref outdata);
             ViewBag.Error="SUCCESS";
             return View();

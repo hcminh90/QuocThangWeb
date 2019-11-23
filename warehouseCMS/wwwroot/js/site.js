@@ -7,6 +7,7 @@ function createrowdata(){
     var Amount = document.getElementById("Amount");
     var Price = document.getElementById("Price");
     var Pay = document.getElementById("Pay");
+    var pri = document.getElementById("pri");
     var prodName = product.options[product.selectedIndex].text;
 
     var table = document.getElementById("tbl_data");
@@ -19,7 +20,7 @@ function createrowdata(){
     row.insertCell(4).innerHTML = Pay.value;
     row.insertCell(5).innerHTML = '';
 
-    var dt = stt + '~' + product.value.split("-")[0] + '~' + Amount.value + '~' + Price.value + '~' + Pay.value;
+    var dt = stt + '~' + product.value.split("-")[0] + '~' + Amount.value + '~' + Price.value + '~' + Pay.value + '~' + pri.value;
     var OrderInfo = document.getElementById("OrderInfo");
     var ordVal = OrderInfo.value;
     if (ordVal == null ||  ordVal == undefined ||  ordVal.length == 0) { 
@@ -32,12 +33,26 @@ function createrowdata(){
     
 }
 
-function CalcPrice(){
+function prod_change(){
     var product = document.getElementById("ProductID");
     var prodPrice = product.value.split("-")[1];
+    var Price = document.getElementById("Price");
+    Price.value = prodPrice;
+    var pri = document.getElementById("pri");
+    pri.value= prodPrice;
+    var unit = document.getElementById("unit");
+    unit.value=product.value.split("-")[2];
+}
+
+function CalcPrice(){
+    var amt = document.getElementById("Amt");
     var Amount = document.getElementById("Amount");
     var Price = document.getElementById("Price");
-    Price.value = prodPrice*Amount.value;
+    var Pay = document.getElementById("Pay");
+    amt.value = Amount.value*Price.value;
+    if(Pay.value == "" || Pay.value == null){
+        Pay.value = Amount.value*Price.value;
+    }
 }
 
 function AddRow(tblid, data) {
