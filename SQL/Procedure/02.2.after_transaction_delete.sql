@@ -1,8 +1,8 @@
 DELIMITER $$
  
-CREATE TRIGGER after_transcation_delete
+CREATE TRIGGER after_transaction_delete
 AFTER DELETE
-ON transcations FOR EACH ROW
+ON transactions FOR EACH ROW
 BEGIN
 	declare v_prod_amount int default 0;
     select prod_amount into v_prod_amount

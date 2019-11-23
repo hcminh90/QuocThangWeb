@@ -1,8 +1,8 @@
 DELIMITER $$
  
-CREATE TRIGGER after_transcation_update
+CREATE TRIGGER after_transaction_update
 AFTER UPDATE
-ON transcations FOR EACH ROW
+ON transactions FOR EACH ROW
 BEGIN
 	declare v_prod_amount int default 0;
     IF NEW.unit_amount <=> OLD.unit_amount 
