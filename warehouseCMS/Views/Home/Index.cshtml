@@ -1,54 +1,147 @@
-﻿@{
+﻿@using warehouseCMS.Data
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <table border=0 cellpadding=0 cellspacing=0 width="100%">
-        <tr><td colspan="4" style="text-align:left;font-style: italic;">Công ty TNHH Quốc Thắng</td></tr>
-        <tr><td colspan="4" style="font-weight:bold;">BÁO CÁO TỔNG HỢP</td></tr>
-        <tr><td colspan="4" style="text-align:right;font-style: italic;">Từ ngày.... đến ngày.....</td></tr>
-        <tr><td colspan=4>&nbsp;</td></tr>
-        <tr><td colspan="4" style="font-weight:bold;background-color:#bdb9b9;">Nhập Kho</td></tr>
-        <tr>
-            <td>Hóa đơn:</td>
-            <td>10</td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Đã thanh toán:</td>
-            <td>1.000.000</td>
-            <td>VND</td>
-            <td><a href="#">Chi tiết</a></td>
-        </tr>
-        <tr>
-            <td>Nợ:</td>
-            <td>-</td>
-            <td>VND</td>
-            <td><a href="#">Chi tiết</a></td>
-        </tr>
-        <tr><td colspan="4">&nbsp;</td></tr>
-        <tr><td colspan="4" style="font-weight:bold;background-color:#bdb9b9;">Xuất Kho</td></tr>
-        <tr>
-            <td>Hóa đơn:</td>
-            <td>5</td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Đã thanh toán:</td>
-            <td>2.000.000</td>
-            <td>VND</td>
-            <td><a href="#">Chi tiết</a></td>
-        </tr>
-        <tr>
-            <td>Nợ:</td>
-            <td>-</td>
-            <td>VND</td>
-            <td><a href="#">Chi tiết</a></td>
-        </tr>
-        <tr><td colspan="4">&nbsp;</td></tr>
-        <tr><td style="font-weight:bold;">Doanh thu:</td><td>1.000.000</td><td>VND</td><td></td></tr>
-        <tr><td style="font-weight:bold;">Công nợ:</td><td>2.000.000</td><td>VND</td><td></td></tr>
-    </table>
+    <div style="float:left; width:70%">
+        <div style="float:left;width:49%;text-align:left;margin-right:5px;" class="obj01">Thống kê công nợ
+            <div>Nhập kho</div>
+            <table border=1 width="100%">
+                <tr><td>Số lượng</td><td>Giá trị:</td><td>Nợ</td><td><a>Chi tiết</a></td></tr>
+            </table>
+            <div>Xuất kho</div>
+            <table border=1 width="100%">
+                <tr><td>Số lượng</td><td>Giá trị</td><td>Nợ</td><td><a>Chi tiết</a></td></tr>
+            </table>
+            <div>Tổng kết</div>
+            <table border=1 width="100%">
+                <tr><td>Lợi nhuận</td><td>10.000.000</td><td>Nợ</td><td>5.000.000</td></tr>
+            </table> 
+        </div>
+        <div style="float:left;width:50%"><!--Tỷ lệ giao dịch theo tháng -->
+            <div id="chart_div" ></div>  
+            <script type="text/javascript">  
+            
+                google.charts.load('current', {  
+                    packages: ['corechart', 'bar']  
+                });  
+                google.charts.setOnLoadCallback(LoadData);  
+            
+                function LoadData() {  
+                    $.ajax({  
+            
+                        url: 'WareHouse/PopulationChart',  
+                        dataType: "json",  
+                        type: "GET",  
+                        error: function(xhr, status, error) {  
+                            var err = eval("(" + xhr.responseText + ")");  
+                            alert(err.message);
+                            toastr.error(err.message);  
+                        },  
+                        success: function(data) {  
+                            PopulationChart(data);  
+                            //alert(JSON.stringify(data));
+                            return false;  
+                        }  
+                    });  
+                    return false;  
+                }  
+            
+                function PopulationChart(data) {  
+                    var dataArray = [  
+                        ['Month', 'abc', 'abc2']  
+                    ];  
+                    $.each(data, function(i, item) {  
+                        
+                        dataArray.push([item.month, item.ouput, item.input]);  
+                    });  
+                    var data = google.visualization.arrayToDataTable(dataArray);  
+                    var options = {  
+                        title: 'Tỷ lệ giao dịch phát sinh qua từng tháng',  
+                        chartArea: {  
+                            width: '100%'  
+                        },  
+                        colors: ['#b0120a', '#7b1fa2'],  
+                        hAxis: {  
+                            title: 'Month',  
+                            minValue: 0  
+                        },  
+                        vAxis: {  
+                            title: 'Số lượng giao dịch'  
+                        }  
+                    };  
+                    var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));  
+            
+                    chart.draw(data, options);  
+                    return false;  
+                }  
+            </script>  
+        </div><!-- biểu đồ cột theo tháng, mỗi tháng có 2 cột nhập/xuất -->
+        <div style="clear:left;text-align:left;margin-top:10px;" class="obj03">
+            <div>
+            Các giao dịch được lập gần đây nhất
+            </div>
+            @{
+                var trans = ViewData["Transactions"] as DbFetchOutData;
+                var trandata = trans.Data;
+            }
+            <table border=1 width="100%">
+                @foreach (var row in trandata)
+                {
+                    <tr><td>@row["TAX_ID"]</td><td>@row["PROD_NAME"]</td><td>@row["CUST_NAME"]</td><td>@row["UNIT_AMOUNT"]</td><td>@row["TRANSACTION"]</td><td>@row["TIMESTAMP"]</td></tr>
+                }
+                
+            </table>
+        </div>
+        <div style="clear:left;text-align:left;margin-top:10px;" class="obj02">
+            Danh sách khach hàng phát sinh nợ/có
+            @{
+                var cust = ViewData["Customers"] as DbFetchOutData;
+                var custdata = cust.Data;
+            }
+            <table border=1 width="100%">
+                @foreach (var row in custdata)
+                {
+                    <tr><td>@row["CUST_NAME"]</td><td>@row["CUST_TAX"]</td><td></td><td></td></tr>
+                }
+                
+            </table>
+        </div>
+    </div>
+    <div style="float:left; width:29%;text-align:left;margin-left:5px;border: 1px solid #616161;">
+        <div style="background-color:#a9a9a9;">
+        Các mặt hàng
+        </div>
+        @{
+            var prod = ViewData["Products"] as DbFetchOutData;
+            var proDT = prod.Data;
+        }
+        @foreach (var row in proDT)
+        {
+            <div>
+                <table border=0 width="100%" cellpadding=0 cellspacing=0>
+                    <tr><td>@row["PROD_NAME"]</td><td>@row["PROD_AMOUNT"]</td></tr>
+                </table>
+            </div>
+        }
+           
+    </div>
 </div>
+<script src="~/js/viewportchecker.js"></script> 
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        jQuery('.obj01').addClass("hidden").viewportChecker({
+            classToAdd: 'visible animated fadeInDown', // Class to add to the elements when they are visible
+            offset: 100    
+        }); 
+        jQuery('.obj02').addClass("hidden").viewportChecker({
+            classToAdd: 'visible animated bounceInUp', // Class to add to the elements when they are visible
+            offset: 100    
+        }); 
+        jQuery('.obj03').addClass("hidden").viewportChecker({
+            classToAdd: 'visible animated bounceInLeft', // Class to add to the elements when they are visible
+            offset: 100    
+        });
+    });            
+</script>

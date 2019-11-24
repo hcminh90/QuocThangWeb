@@ -75,3 +75,4 @@ C:\Users\Administrator\Documents\Visual Code\warehouseCMS\obj\Debug\netcoreapp2.
 C:\Users\hcmin\OneDrive\Documents\Visual studio code\warehouseCMS\obj\Debug\netcoreapp2.2\Razor\Views\WareHouse\Customer.g.cshtml.cs
 C:\Users\hcmin\OneDrive\Documents\Visual studio code\warehouseCMS\obj\Debug\netcoreapp2.2\Razor\Views\WareHouse\Product.g.cshtml.cs
 C:\Users\hcmin\OneDrive\Documents\Visual studio code\warehouseCMS\obj\Debug\netcoreapp2.2\Razor\Views\WareHouse\CustomerShow.g.cshtml.cs
+C:\Users\Administrator\Documents\Visual Code\warehouseCMS\obj\Debug\netcoreapp2.2\Razor\Views\WareHouse\CustomerShow.g.cshtml.cs

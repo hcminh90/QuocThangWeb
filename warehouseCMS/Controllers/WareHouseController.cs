@@ -263,6 +263,13 @@ namespace warehouseCMS.Controllers
             return View();
         }
 
+        public JsonResult PopulationChart()
+        {
+            var populationList = PopulationDataAccessaLayer.GetCityPopulationList();
+            Console.WriteLine("populationList: " + Json(populationList));
+            return Json(populationList);
+        }
+
         public IActionResult Report()
         {
             return View();
