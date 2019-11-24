@@ -6,19 +6,19 @@
 <div class="text-center">
     <div style="float:left; width:70%">
         <div style="float:left;width:49%;text-align:left;margin-right:5px;padding:2px;" class="obj01 backbox">
-            <span style="font-weight: bold;">Thống kê công nợ</span>
+            <span style="font-weight: bold;">Công ty Quốc Thắng (từ ngày ... đến ngày ...)</span>
             <div style="background-color:#fff; padding:2px;">
                 <div style="font-weight: bold;">Nhập kho</div>
                 <table border=0 width="100%">
-                    <tr><td>Số lượng: 100</td><td>Giá trị: 50.000.000</td><td>Nợ: 15.000.000</td><td><a>Chi tiết</a></td></tr>
+                    <tr><td>Hóa đơn: 100</td><td>Đã thanh toán: 50.000.000</td><td>Nợ: 15.000.000</td><td><a>Chi tiết</a></td></tr>
                 </table>
                 <div style="font-weight: bold;">Xuất kho</div>
                 <table border=0 width="100%">
-                    <tr><td>Số lượng: 80</td><td>Giá trị: 40.000.000</td><td>Nợ: 10.000.000</td><td><a>Chi tiết</a></td></tr>
+                    <tr><td>Hóa đơn: 80</td><td>Đã thanh toán: 40.000.000</td><td>Nợ: 10.000.000</td><td><a>Chi tiết</a></td></tr>
                 </table>
-                <div style="font-weight: bold;">Tổng kết</div>
+                <div style="font-weight: bold;">&nbsp;</div>
                 <table border=0 width="100%">
-                    <tr><td>Lợi nhuận:</td><td style="font-weight: bold;background-color:#8bc36a">10.000.000</td><td>Nợ:</td><td style="font-weight: bold;background-color:#dc3545;color:#fff;">5.000.000</td></tr>
+                    <tr><td style="font-weight: bold;">Doanh thu:</td><td style="font-weight: bold;background-color:#8bc36a">10.000.000</td><td style="font-weight: bold;">Công nợ:</td><td style="font-weight: bold;background-color:#dc3545;color:#fff;">5.000.000</td></tr>
                 </table> 
             </div>
         </div>
@@ -91,8 +91,8 @@
                 var trandata = trans.Data;
             }
             <div style="background-color:#fff; padding:2px;">
-                <table border=1 width="100%">
-                    <tr><td style="background-color:#bebebe;border:1px outset #808080;">Mã hóa đơn</td><td style="background-color:#bebebe;border:1px outset #808080;">Sản phẩm</td><td style="background-color:#bebebe;border:1px outset #808080;">Khách hàng</td><td style="background-color:#bebebe;border:1px outset #808080;">Số lượng</td><td style="background-color:#bebebe;border:1px outset #808080;">Giao dịch</td><td style="background-color:#bebebe;border:1px outset #808080;">Thời gian</td></tr>
+                <table border=1 width="100%" id="hieghtlighttbl">
+                    <tr><th>Mã hóa đơn</th><th>Sản phẩm</th><th>Khách hàng</th><th>Số lượng</th><th>Giao dịch</th><th>Thời gian</th></tr>
                     @foreach (var row in trandata)
                     {
                         <tr><td><a>@row["TAX_ID"]</a></td><td>@row["PROD_NAME"]</td><td>@row["CUST_NAME"]</td><td>@row["UNIT_AMOUNT"]</td><td>@row["TRANSACTION"]</td><td>@row["TIMESTAMP"]</td></tr>
@@ -111,8 +111,8 @@
                 var custdata = cust.Data;
             }
             <div style="background-color:#fff; padding:2px;">
-                <table border=1 width="100%">
-                    <tr><td style="background-color:#bebebe;border:1px outset #808080;">Tên Khách Hàng</td><td style="background-color:#bebebe;border:1px outset #808080;">Mã số thuế</td><td style="background-color:#bebebe;border:1px outset #808080;">Nợ</td><td style="background-color:#bebebe;border:1px outset #808080;">Thiếu</td><td style="background-color:#bebebe;border:1px outset #808080;">Chi tiết</td></tr>
+                <table border=1 width="100%"  id="hieghtlighttbl">
+                    <tr><th>Tên Khách Hàng</th><th>Mã số thuế</th><th>Nợ</th><th>Thiếu</th><th>Chi tiết</th></tr>
                     @foreach (var row in custdata)
                     {
                         <tr><td>@row["CUST_NAME"]</td><td>@row["CUST_TAX"]</td><td>0</td><td>0</td><td><a>Chi tiết</a></td></tr>
@@ -124,21 +124,26 @@
     </div>
     <div style="float:left; width:29%;text-align:left;margin-left:5px;height:500px;padding:2px;" class="backbox">
         <div style="font-weight: bold;">
-        Các mặt hàng
+        Tồn kho
         </div>
         @{
             var prod = ViewData["Products"] as DbFetchOutData;
             var proDT = prod.Data;
+            int i = 0;
         }
         <div style="background-color:#fff; padding:2px;height:470px;">
-        @foreach (var row in proDT)
-        {
-            <div>
-                <table border=0 width="100%" cellpadding=0 cellspacing=0>
-                    <tr><td>@row["PROD_NAME"]</td><td>@row["PROD_AMOUNT"] @row["PROD_UNIT"]</td></tr>
-                </table>
-            </div>
-        }
+            <table border=0 width="100%" cellpadding=0 cellspacing=0>
+            @foreach (var row in proDT)
+            {
+                @if(i == 0){
+                    <tr><td style="padding-left:3px;border-top:1px solid #bebebe;border-left:1px solid #bebebe;border-bottom:1px solid #bebebe;border-rigth:1px solid #bebebe;">@row["PROD_NAME"]</td><td style="border-top:1px solid #bebebe;border-right:1px solid #bebebe;border-bottom:1px solid #bebebe;border-rigth:1px solid #bebebe;"><span style="font-weight: bold;color:#9c0000">@row["PROD_AMOUNT"]</span> @row["PROD_UNIT"]</td></tr>
+                }
+                else{
+                    <tr><td style="padding-left:3px;border-left:1px solid #bebebe;border-bottom:1px solid #bebebe;border-rigth:1px solid #bebebe;">@row["PROD_NAME"]</td><td style="border-right:1px solid #bebebe;border-bottom:1px solid #bebebe;border-rigth:1px solid #bebebe;"><span style="font-weight: bold;color:#9c0000">@row["PROD_AMOUNT"]</span> @row["PROD_UNIT"]</td></tr>
+                }
+                i = i + 1;
+            }
+            </table>
         </div> 
     </div>
 </div>

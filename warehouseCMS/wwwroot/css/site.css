@@ -262,3 +262,11 @@ body {
   background-color: #b1d696;
   border: 1px solid #696;
 }
+#hieghtlighttbl th{
+  background-color:#bebebe;
+  border:1px outset #808080;
+  font-weight: normal;
+}
+#hieghtlighttbl tr:nth-child(even){background-color: #eaeaea;}
+#hieghtlighttbl tr:hover {background-color: #e1ffd4;}
+
