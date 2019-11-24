@@ -206,6 +206,23 @@ body {
   background: linear-gradient(#D6EC83, #8FE269);
   -pie-background: linear-gradient(#D6EC83, #8FE269);
 }
+
+.backbox{
+  border: 1px solid #616161;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  behavior: url(/css/pie/PIE.htc);
+  background: #8a8a8a;
+  background: -webkit-gradient(linear, 0 0, 0 bottom, from(#8a8a8a), to(#b3b3b3));
+  background: -webkit-linear-gradient(#8a8a8a, #b3b3b3);
+  background: -moz-linear-gradient(#8a8a8a, #b3b3b3);
+  background: -ms-linear-gradient(#8a8a8a, #b3b3b3);
+  background: -o-linear-gradient(#8a8a8a, #b3b3b3);
+  background: linear-gradient(#8a8a8a, #b3b3b3);
+  -pie-background: linear-gradient(#8a8a8a, #b3b3b3);
+}
+
 .menu{
   float: left;
   border: 1px solid #696;
