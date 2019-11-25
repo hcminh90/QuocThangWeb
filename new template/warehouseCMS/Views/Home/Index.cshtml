@@ -1,0 +1,167 @@
+﻿@using warehouseCMS.Data
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="qtContaint">
+    <table border=0 cellpadding=0 cellspacing=0 height="100%" width="100%">
+        <tr>
+            <td style="padding-right: 10px;">
+                <div class="qtContaintCT">
+                    <div id="chart_div" class="chart"></div> 
+                    <script type="text/javascript">  
+                    
+                        google.charts.load('current', {  
+                            packages: ['corechart', 'bar']  
+                        });  
+                        google.charts.setOnLoadCallback(LoadData);  
+                    
+                        function LoadData() {  
+                            $.ajax({  
+                    
+                                url: 'WareHouse/PopulationChart',  
+                                dataType: "json",  
+                                type: "GET",  
+                                error: function(xhr, status, error) {  
+                                    var err = eval("(" + xhr.responseText + ")");  
+                                    alert(err.message);
+                                    toastr.error(err.message);  
+                                },  
+                                success: function(data) {  
+                                    PopulationChart(data);  
+                                    //alert(JSON.stringify(data));
+                                    return false;  
+                                }  
+                            });  
+                            return false;  
+                        }  
+                    
+                        function PopulationChart(data) {  
+                            var dataArray = [  
+                                ['Các tháng giao dịch', 'Xuất kho', 'Nhập kho']  
+                            ];  
+                            $.each(data, function(i, item) {  
+                                
+                                dataArray.push([item.month, item.ouput, item.input]);  
+                            });  
+                            var data = google.visualization.arrayToDataTable(dataArray);  
+                            var options = {  
+                                colors: ['#b0120a', '#7b1fa2']
+                            };  
+                            //var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));  
+                            var chart = new google.charts.Bar(document.getElementById('chart_div'));  
+                            chart.draw(data, options);  
+                            return false;  
+                        }
+                        $(window).resize(function(){
+                            LoadData();
+                        });  
+                    </script> 
+                    <div class="obj01 qtBox">
+                        <div class="qtBoxTitle">Thống kê từ ngày 1/9/2019 đến ngày 30/11/2019</div>
+                        <div>
+                            <div style="font-weight: bold;">Nhập kho</div>
+                            <table border=0 width="100%">
+                                <tr><td>Hóa đơn: 100</td><td>Đã thanh toán: 50.000.000</td><td>Nợ: 15.000.000</td><td><a>Chi tiết</a></td></tr>
+                            </table>
+                            <div style="font-weight: bold;">Xuất kho</div>
+                            <table border=0 width="100%">
+                                <tr><td>Hóa đơn: 80</td><td>Đã thanh toán: 40.000.000</td><td>Nợ: 10.000.000</td><td><a>Chi tiết</a></td></tr>
+                            </table>
+                            <div style="font-weight: bold;">&nbsp;</div>
+                            <table border=0 width="100%">
+                                <tr><td style="font-weight: bold;">Doanh thu:</td><td style="font-weight: bold;background-color:#8bc36a">10.000.000</td><td style="font-weight: bold;">Công nợ:</td><td style="font-weight: bold;background-color:#dc3545;color:#fff;">5.000.000</td></tr>
+                            </table> 
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top:10px;" class="obj03 qtBox">
+                        <div class="qtBoxTitle">
+                        Các giao dịch được lập gần đây nhất
+                        </div>
+                        @{
+                            var trans = ViewData["Transactions"] as DbFetchOutData;
+                            var trandata = trans.Data;
+                        }
+                        <div style="background-color:#fff;">
+                            <table border=0 width="100%" id="hieghtlighttbl">
+                                <tr><th>Mã hóa đơn</th><th>Sản phẩm</th><th>Khách hàng</th><th>Số lượng</th><th>Giao dịch</th><th>Thời gian</th></tr>
+                                @foreach (var row in trandata)
+                                {
+                                    <tr><td><a>@row["TAX_ID"]</a></td><td>@row["PROD_NAME"]</td><td>@row["CUST_NAME"]</td><td>@row["UNIT_AMOUNT"]</td><td>@row["TRANSACTION"]</td><td>@row["TIMESTAMP"]</td></tr>
+                                }
+                            </table>
+                        </div>
+                    </div>
+
+                    <div style="margin-top:10px;" class="obj02 qtBox">
+                        <div class="qtBoxTitle">
+                        Danh sách khach hàng phát sinh nợ/có
+                        </div>
+                        @{
+                            var cust = ViewData["Customers"] as DbFetchOutData;
+                            var custdata = cust.Data;
+                        }
+                        <div style="background-color:#fff;">
+                            <table border=0 width="100%"  id="hieghtlighttbl">
+                                <tr><th>Tên Khách Hàng</th><th>Mã số thuế</th><th>Nợ</th><th>Thiếu</th><th>Chi tiết</th></tr>
+                                @foreach (var row in custdata)
+                                {
+                                    <tr><td>@row["CUST_NAME"]</td><td>@row["CUST_TAX"]</td><td>0</td><td>0</td><td><a>Chi tiết</a></td></tr>
+                                }
+                                
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td style="width:300px;">
+                <div class="tonkho qtBox rigthcol">
+                    <div class="qtBoxTitle">
+                        Tồn kho
+                    </div>
+                    @{
+                        var prod = ViewData["Products"] as DbFetchOutData;
+                        var proDT = prod.Data;
+                        int i = 0;
+                    }
+                    <div class="qtBoxContent">
+                        <table border=0 width="100%" cellpadding=0 cellspacing=0>
+                        @foreach (var row in proDT)
+                        {
+                            @if(i == 0){
+                                <tr><td style="padding-left:3px;border-top:1px solid #bebebe;border-left:1px solid #bebebe;border-bottom:1px solid #bebebe;border-rigth:1px solid #bebebe;">@row["PROD_NAME"]</td><td style="border-top:1px solid #bebebe;border-right:1px solid #bebebe;border-bottom:1px solid #bebebe;border-rigth:1px solid #bebebe;"><span style="font-weight: bold;color:#9c0000">@row["PROD_AMOUNT"]</span> @row["PROD_UNIT"]</td></tr>
+                            }
+                            else{
+                                <tr><td style="padding-left:3px;border-left:1px solid #bebebe;border-bottom:1px solid #bebebe;border-rigth:1px solid #bebebe;">@row["PROD_NAME"]</td><td style="border-right:1px solid #bebebe;border-bottom:1px solid #bebebe;border-rigth:1px solid #bebebe;"><span style="font-weight: bold;color:#9c0000">@row["PROD_AMOUNT"]</span> @row["PROD_UNIT"]</td></tr>
+                            }
+                            i = i + 1;
+                        }
+                        </table>
+                    </div> 
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+<script src="~/js/viewportchecker.js"></script> 
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        jQuery('.obj01').addClass("hidden").viewportChecker({
+            classToAdd: 'visible animated zoomIn', // Class to add to the elements when they are visible
+            offset: 100    
+        }); 
+        jQuery('.obj02').addClass("hidden").viewportChecker({
+            classToAdd: 'visible animated zoomIn', // Class to add to the elements when they are visible
+            offset: 100    
+        }); 
+        jQuery('.obj03').addClass("hidden").viewportChecker({
+            classToAdd: 'visible animated zoomIn', // Class to add to the elements when they are visible
+            offset: 100    
+        });
+        jQuery('.rigthcol').addClass("hidden").viewportChecker({
+            classToAdd: 'visible animated fadeInLeft', // Class to add to the elements when they are visible
+            offset: 100    
+        });
+    });            
+</script>

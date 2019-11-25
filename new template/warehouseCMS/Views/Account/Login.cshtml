@@ -1,0 +1,43 @@
+﻿@using System
+@{
+    ViewData["Title"] = "Đăng nhập hệ thống";
+}
+@{
+    var error = ViewData["Error"] as string;
+    if(!string.IsNullOrEmpty(error))
+    {
+        <div class="error-msg">
+            <i class="fa fa-warning" style="font-size:20px;color:red"></i> @error
+        </div>
+    }
+}
+
+<div class="loginPanel loginAmime">
+    <div class="loginTitle">Đăng nhập hệ thống</div>
+    <div class="loginForm">
+        <table width="100%" cellpadding=0 cellspacing=0>
+            <tr>
+                <td style="width:100px;"><img src="~/images/loginPanelIcon.png"></td>
+                <td>
+                    <form  method = "post" asp-controller = "Account" asp-action = "Login" autocomplete="off">
+                        <table width="100%" cellpadding=0 cellspacing=0>
+                            <tr><td style="height:35px;">Tên đăng nhập:</td><td><input class="textbox" name="username" autocomplete="off" tabindex="1" style="width:170px"/></td></tr>
+                            <tr><td style="height:35px;">Mật khẩu:</td><td><input type="password" class="textbox" name="password" autocomplete="off" tabindex="2" style="width:170px"/></td></tr>
+                            <tr><td colspan=2 style="text-align: right;height:37px;"><input type="checkbox" name="remeberme" value="1" style="margin-right:3px;">Ghi nhớ tôi?<input type="submit" value="Đăng nhập" class="button" tabindex="3" style="margin-left:10px;margin-right:6px;"/></td></tr>
+                        </table>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<script src="~/js/viewportchecker.js"></script> 
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        jQuery('.loginAmime').addClass("hidden").viewportChecker({
+            classToAdd: 'visible animated fadeInDown', // Class to add to the elements when they are visible
+            offset: 100    
+        }); 
+    });            
+</script>

@@ -1,0 +1,80 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <div class="menu">
+        <div class="title">Menu</div>
+        <div class="menu-content">
+            <div>Danh sách sản phẩm</div>
+            <div>Thêm sản phẩm</div>
+        </div>
+    </div>
+    <div class="input-area">
+        @{
+            if(ViewBag.Error != "NO"){
+                if(ViewBag.Error == "SUCCESS"){
+                    <div class="success-msg">
+                        <i class="fa fa-check" style="font-size:20px;color:green;"></i> Thành công!
+                    </div>
+                }
+                else
+                {
+                    <div class="error-msg">
+                        <i class="fa fa-warning" style="font-size:20px;color:red"></i> @ViewBag.Error
+                    </div>
+                }
+            }
+        }
+        <form method = "post" asp-controller = "WareHouse" asp-action = "Product" autocomplete="off">
+            <div class="form-panel">
+                <div class="title">Thông tin sản phẩm</div>
+                <div class="form-row-r">
+                    <div class="col-25">
+                        <label for="ProdName">Tên sản phẩm: </label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="ProdName" name ="ProdName" placeholder="Nhập tên sản phảm.." autocomplete="off">
+                    </div>
+                </div>
+                <div class="form-row-r">
+                    <div class="col-25">
+                        <label for="ProdDesc">Mô tả: </label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="ProdDesc" name ="ProdDesc" placeholder="Mô tả sản phẩm.." autocomplete="off">
+                    </div>
+                </div>
+                <div class="form-row-r">
+                    <div class="col-25">
+                        <label for="ProdIUnit">Đơn vị tính: </label>
+                    </div>
+                    <div class="col-75">
+                        <select name="ProdIUnit">
+                            <option value='kg'>Kilogram</option>
+                            <option value='tan'>Tấn</option>
+                            <option value='ta'>Tạ</option>
+                            <option value='yen'>Yến</option>
+                            <option value='bao'>Bao</option>
+                            <option value='hop'>Hộp</option>
+                            <option value='thung'>Thùng</option>
+                            <option value='con'>Con</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row-r">
+                    <div class="col-25">
+                        <label for="ProdPrice">Giá: </label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="ProdPrice" name ="ProdPrice" placeholder="Giá..." autocomplete="off" autocomplete="false">
+                    </div>
+                </div>
+                
+            </div>
+            <div class="submit-area">
+                    <input type="submit" value="Lưu" style="width:150px;">
+            </div>
+        </form>
+    </div>
+</div>

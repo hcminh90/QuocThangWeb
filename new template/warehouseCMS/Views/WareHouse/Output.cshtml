@@ -1,0 +1,122 @@
+﻿@using warehouseCMS.Data
+@{
+    ViewData["Title"] = "Xuất Kho";
+}
+
+<div class="text-center">
+    <div class="label-page"><img src="~/images/Nhapkho-icon.png" height="40px"> Xuất hàng</div>
+    <!--
+    <div class="menu">
+        <div class="title">Menu</div>
+        <div class="menu-content">
+            <div>Kho hàng</div>
+            <div>Nhập vào</div>
+            <div>Xuất hóa đơn nhập</div>
+        </div>
+    </div>
+    -->
+    <div class="input-area">
+        @{
+            if(ViewBag.Error != "NO"){
+                if(ViewBag.Error == "SUCCESS"){
+                    <div class="success-msg">
+                        <i class="fa fa-check" style="font-size:20px;color:green;"></i> Thành công!
+                    </div>
+                }
+                else
+                {
+                    <div class="error-msg">
+                        <i class="fa fa-warning" style="font-size:20px;color:red"></i> @ViewBag.Error
+                    </div>
+                }
+            }
+        }
+        <form method = "post" asp-controller = "WareHouse" asp-action = "Output" autocomplete="off">
+            <div class="form-panel">
+                <div class="title">Thông tin khách hàng/Nhà cung cấp</div>
+                <div class="form-row-r">
+                    <div class="col-25">
+                        <label for="CusID">Chọn khách hàng/Nhà CC: </label>
+                    </div>
+                    @{
+                        var cus = ViewData["Customers"] as DbFetchOutData;
+                        var data = cus.Data;
+                    }
+                    <div class="col-75">
+                        <select name="CusID">
+                        @foreach (var row in data)
+                        {
+                            <option value='@row["CUST_ID"]'>@row["CUST_NAME"]</option>
+                        }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-panel">
+                <div class="title">Thông tin giao dịch</div>
+                <div class="form-row-r">
+                    <div class="col-25">
+                        <label for="ProductID">Chọn loại hàng: </label>
+                    </div>
+                    @{
+                        var prod = ViewData["Products"] as DbFetchOutData;
+                        var dtProd = prod.Data;
+                    }
+                    <div class="col-75">
+                        <select id="ProductID">
+                        @foreach (var row in dtProd)
+                        {
+                            <option value='@row["PROD_ID"]-@row["PROD_UNIT_PRICE"]'>@row["PROD_NAME"]</option>
+                        }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row-r">
+                    <div class="col-25">
+                        <label for="Amount">Số lượng: </label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="Amount" placeholder="Số lượng.." autocomplete="off" onblur="CalcPrice();">
+                    </div>
+                </div>
+                <div class="form-row-r">
+                    <div class="col-25">
+                        <label for="Price">Thành tiền: </label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="Price" autocomplete="off">
+                    </div>
+                </div>
+                <div class="form-row-r">
+                    <div class="col-25">
+                        <label for="Pay">Số tiền đã thanh toán: </label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="Pay" autocomplete="off">
+                    </div>
+                </div>
+                <div class="form-row-r">
+                    <div style="padding-bottom:5px;text-align: center;">
+                        <input type="button" value="Thêm vào đơn hàng" onclick="createrowdata();">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-panel">
+                <div class="title">Thông tin đơn hàng</div>
+                <div class="frmtable">
+                    <table id="tbl_data" width="100%" cellpadding=0 cellspacing=0>
+                        <tr class="tbl_header"><td>Stt</td><td>Tên Hàng</td><td>Số Lượng</td><td>Số Tiền</td><td>Đã Thanh Toán</td><td>Xóa</td></tr>
+                    </table>
+                </div>
+            </div>
+
+            <input type="hidden" name="OrderInfo" id="OrderInfo" value="">
+
+            <div class="submit-area">
+                <input type="submit" value="Xuất kho">
+            </div>
+        </form>
+    </div>
+    <div style="clear: left;"></div>
+</div>
