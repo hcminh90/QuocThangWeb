@@ -58,6 +58,8 @@ namespace warehouseCMS.Controllers
         {
             Console.WriteLine("CusID :" + CusID);
             Console.WriteLine("OrderInfo :" + OrderInfo);
+            var cus = CusID.Split('-')[0];
+            Console.WriteLine("cus :" + cus);
             var loggedInUser = HttpContext.User;
             var user_name = loggedInUser.Identity.Name;
             var user_id = GetUserID(user_name);
@@ -88,7 +90,7 @@ namespace warehouseCMS.Controllers
                     param = new Dictionary<string, string>();
                     param.Add("TAX_ID",taxid);
                     param.Add("PROD_ID",fields[1]);
-                    param.Add("CUST_ID",CusID);
+                    param.Add("CUST_ID",cus);
                     param.Add("USER_ID",user_id);
                     param.Add("TIMESTAMP",DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                     param.Add("UNIT_PRICE",fields[3]);
@@ -139,6 +141,8 @@ namespace warehouseCMS.Controllers
         {
             Console.WriteLine("CusID :" + CusID);
             Console.WriteLine("OrderInfo :" + OrderInfo);
+            var cus = CusID.Split('-')[0];
+            Console.WriteLine("cus :" + cus);
             var loggedInUser = HttpContext.User;
             var user_name = loggedInUser.Identity.Name;
             var user_id = GetUserID(user_name);
@@ -169,7 +173,7 @@ namespace warehouseCMS.Controllers
                     param = new Dictionary<string, string>();
                     param.Add("TAX_ID",taxid);
                     param.Add("PROD_ID",fields[1]);
-                    param.Add("CUST_ID",CusID);
+                    param.Add("CUST_ID",cus);
                     param.Add("USER_ID",user_id);
                     param.Add("TIMESTAMP",DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                     param.Add("UNIT_PRICE",fields[3]);

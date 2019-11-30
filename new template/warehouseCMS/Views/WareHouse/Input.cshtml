@@ -3,17 +3,9 @@
     ViewData["Title"] = "Mhập Kho";
 }
 
-<div class="text-center">
-    <div class="label-page"><img src="~/images/Nhapkho-icon.png" height="40px"> Nhập hàng</div>
-    <div class="menu">
-        <div class="title">Menu</div>
-        <div class="menu-content">
-            <div>Kho hàng</div>
-            <div>Nhập vào</div>
-            <div>Xuất hóa đơn nhập</div>
-        </div>
-    </div>
-    <div class="input-area">
+<div class="qtBox2">
+    <div class="qtBoxTitle">Nhập hàng</div>
+    <div class="qtBoxContent2">
         @{
             if(ViewBag.Error != "NO"){
                 if(ViewBag.Error == "SUCCESS"){
@@ -30,107 +22,140 @@
             }
         }
         <form method = "post" asp-controller = "WareHouse" asp-action = "Input" autocomplete="off">
-            <div class="form-panel">
-                <div class="title">Thông tin khách hàng/Nhà cung cấp</div>
-                <div class="form-row-r">
-                    <div class="col-25">
-                        <label for="CusID">Chọn khách hàng/Nhà CC: </label>
-                    </div>
-                    @{
-                        var cus = ViewData["Customers"] as DbFetchOutData;
-                        var data = cus.Data;
-                    }
-                    <div class="col-75">
-                        <select name="CusID">
-                        @foreach (var row in data)
-                        {
-                            <option value='@row["CUST_ID"]'>@row["CUST_NAME"]</option>
-                        }
-                        </select>
+            <div class="qtBoxNew obj01">
+                <div class="qtTitle2">Thông tin khách hàng/Nhà cung cấp</div>
+                <div class="qtBoxContent2">
+                    <table border=0 cellpadding=0 cellspacing=0 height="100%" width="100%">
+                        <tr>
+                            <td style="width:200px;">Chọn khách hàng/Nhà CC <span class="qtqoute">(*)</span>:</td>
+                            <td>
+                                @{
+                                    var cus = ViewData["Customers"] as DbFetchOutData;
+                                    var data = cus.Data;
+                                }
+                                <select name="CusID" id="CusID" onchange="showCus();">
+                                    <option value="">--Lựa chọn</option>
+                                    @foreach (var row in data)
+                                    {
+                                        <option value='@row["CUST_ID"]-@row["CUST_NAME"]-@row["CUST_TAX"]-@row["CUST_PHONE_NUMBER"]-@row["CUST_ADDRESS"]-@row["CUST_EMAIL"]'>@row["CUST_NAME"]</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="qthidden" id="showcusInfo">
+                        <table border=0 cellpadding=0 cellspacing=0 height="100%" width="100%">
+                            <tr style="display:none;">
+                                <td style="bold;height:20px;">Mã khách hàng: </td><td><div id="CusInfoID"></div></td>
+                            </tr>
+                            <tr>
+                                <td style="bold;width:200px;height:20px;">Tên khách hàng:</td><td><div id="CusInfoName"></div></td>
+                            </tr>
+                            <tr>
+                                <td style="bold;height:20px;">Mã số thuế:</td><td><div id="CusInfoTax"></div></td>
+                            </tr>
+                            <tr>
+                                <td style="height:20px;">Số điện thoại:</td><td><div id="CusInfoPhone"></div></td>
+                            </tr>
+                            <tr>
+                                <td style="height:20px;">Địa chỉ liên hệ:</td><td><div id="CusInfoAdress"></div></td>
+                            </tr>
+                            <tr>
+                                <td style="height:20px;">Email:</td><td><div id="CusInfoEmail"></div></td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>
-            <div class="form-panel">
-                <div class="title">Thông tin giao dịch</div>
-                <div class="form-row-r">
-                    <div class="col-25">
-                        <label for="ProductID">Chọn loại hàng: </label>
-                    </div>
-                    @{
-                        var prod = ViewData["Products"] as DbFetchOutData;
-                        var dtProd = prod.Data;
-                    }
-                    <div class="col-75">
-                        <select id="ProductID" onchange="prod_change()">
-                        <option value="">--Lựa chọn</option>
-                        @foreach (var row in dtProd)
-                        {
-                            <option value='@row["PROD_ID"]-@row["PROD_UNIT_PRICE"]-@row["PROD_UNIT"]'>@row["PROD_NAME"]</option>
-                        }
-                        </select>
-                        Giá : <input type="text" id="pri" style="width:100px" disabled>
-                        <script type="text/javascript">$("#pri").maskMoney({thousands:',', allowZero: true, precision: 0, allowEmpty:false, suffix:""});</script>
-                        Đơn vị tính: <input type="text" id="unit" style="width:60px" disabled>
-                    </div>
+            <div class="qtBoxNew obj02">
+                <div class="qtTitle2">Thông tin giao dịch</div>
+                <div class="qtBoxContent2">
+                    <table border=0 cellpadding=0 cellspacing=0 height="100%" width="100%">
+                        <tr>
+                            <td style="width:200px;height:23px;">Chọn loại hàng <span class="qtqoute">(*)</span>:</td>
+                            <td>
+                                @{
+                                    var prod = ViewData["Products"] as DbFetchOutData;
+                                    var dtProd = prod.Data;
+                                }
+                                <select id="ProductID" onchange="prod_change()">
+                                <option value="">--Lựa chọn</option>
+                                @foreach (var row in dtProd)
+                                {
+                                    <option value='@row["PROD_ID"]-@row["PROD_UNIT_PRICE"]-@row["PROD_UNIT"]'>@row["PROD_NAME"]</option>
+                                }
+                                </select>
+                            </td>
+                            <td>Giá:</td><td><input type="text" id="pri" disabled></td>
+                            <td>Đơn vị tính:</td><td><input type="text" id="unit" disabled></td>
+                            <script type="text/javascript">$("#pri").maskMoney({thousands:',', allowZero: true, precision: 0, allowEmpty:false, suffix:""});</script>
+                        </tr>
+                        <tr>
+                            <td style="height:23px;">Số lượng <span class="qtqoute">(*)</span>:</td>
+                            <td><input type="text" id="Amount" placeholder="Số lượng.." autocomplete="off" onblur="CalcPrice();"></td>
+                            <script type="text/javascript">$("#Amount").maskMoney({thousands:',', allowZero: true, precision: 0, allowEmpty:false, suffix:""});</script>
+                        </tr>
+                        <tr>
+                            <td style="height:23px;">Đơn giá <span class="qtqoute">(*)</span>:</td>
+                            <td><input type="text" id="Price" autocomplete="off" onblur="CalcPrice();"></td>
+                            <script type="text/javascript">$("#Price").maskMoney({thousands:',', allowZero: true, precision: 0, allowEmpty:false, suffix:""});</script>
+                        </tr>
+                        <tr>
+                            <td style="height:23px;">Thành tiền:</td>
+                            <td><input type="text" id="Amt" disabled autocomplete="off"></td>
+                            <script type="text/javascript">$("#Amt").maskMoney({thousands:',', allowZero: true, precision: 0, allowEmpty:false, suffix:""});</script>
+                        </tr>
+                        <tr>
+                            <td style="height:23px;">Số tiền đã thanh toán <span class="qtqoute">(*)</span>:</td>
+                            <td><input type="text" id="Pay" autocomplete="off"></td>
+                            <script type="text/javascript">$("#Pay").maskMoney({thousands:',', allowZero: true, precision: 0, allowEmpty:false, suffix:""});</script>
+                        </tr>
+                    </table>
                 </div>
-                <div class="form-row-r">
-                    <div class="col-25">
-                        <label for="Amount">Số lượng: </label>
-                    </div>
-                    <div class="col-75">
-                        <input type="text" id="Amount" placeholder="Số lượng.." autocomplete="off" onblur="CalcPrice();">
-                        <script type="text/javascript">$("#Amount").maskMoney({thousands:',', allowZero: true, precision: 0, allowEmpty:false, suffix:""});</script>
-                    </div>
-                </div>
-                <div class="form-row-r">
-                    <div class="col-25">
-                        <label for="Price">Đơn giá: </label>
-                    </div>
-                    <div class="col-75">
-                        <input type="text" id="Price" autocomplete="off" onblur="CalcPrice();">
-                        <script type="text/javascript">$("#Price").maskMoney({thousands:',', allowZero: true, precision: 0, allowEmpty:false, suffix:""});</script>
-                    </div>
-                </div>
-                <div class="form-row-r">
-                    <div class="col-25">
-                        <label for="Amt">Thành tiền: </label>
-                    </div>
-                    <div class="col-75">
-                        <input type="text" id="Amt" disabled autocomplete="off">
-                        <script type="text/javascript">$("#Amt").maskMoney({thousands:',', allowZero: true, precision: 0, allowEmpty:false, suffix:""});</script>
-                    </div>
-                </div>
-                <div class="form-row-r">
-                    <div class="col-25">
-                        <label for="Pay">Số tiền đã thanh toán: </label>
-                    </div>
-                    <div class="col-75">
-                        <input type="text" id="Pay" autocomplete="off">
-                        <script type="text/javascript">$("#Pay").maskMoney({thousands:',', allowZero: true, precision: 0, allowEmpty:false, suffix:""});</script>
-                    </div>
-                </div>
-                <div class="form-row-r">
-                    <div style="padding-bottom:5px;text-align: center;">
-                        <input type="button" value="Thêm vào đơn hàng" onclick="createrowdata();">
-                    </div>
+                <div>
+                    <table border=0 cellpadding=0 cellspacing=0 height="100%" width="100%">
+                        <tr>
+                            <td></td>
+                            <td style="text-align:right;">
+                                <input type="button" class="qtbutton" style="width:170px" value="Thêm vào đơn hàng" onclick="createrowdata();">
+                                <input type="button" class="qtbutton" value="Xóa trắng" onclick="">
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
             
-            <div class="form-panel">
-                <div class="title">Thông tin đơn hàng</div>
+            <div class="qtBoxNew obj03">
+                <div class="qtTitle2">Thông tin đơn hàng</div>
                 <div class="frmtable">
-                    <table id="tbl_data" width="100%" cellpadding=0 cellspacing=0>
-                        <tr class="tbl_header"><td>Stt</td><td>Tên Hàng</td><td>Số Lượng</td><td>Số Tiền</td><td>Đã Thanh Toán</td><td>Xóa</td></tr>
+                    <table id="tbl_data" class ="qthltbl" width="100%" cellpadding=0 cellspacing=0>
+                        <tr><th>Stt</th><th>Tên Hàng</th><th>Số Lượng</th><th>Số Tiền</th><th>Đã Thanh Toán</th><th style="text-align:center;"></th></tr>
                     </table>
                 </div>
             </div>
 
             <input type="hidden" name="OrderInfo" id="OrderInfo" value="">
 
-            <div class="submit-area">
-                <input type="submit" value="Nhập kho">
+            <div style="text-align:right;margin-top:5px;">
+                <input type="submit" class="qtbutton" style="width:170px" value="Nhập kho">
             </div>
         </form>
     </div>
-    <div style="clear: left;"></div>
 </div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        jQuery('.obj01').addClass("hidden").viewportChecker({
+            classToAdd: 'visible animated zoomIn', // Class to add to the elements when they are visible
+            offset: 100    
+        }); 
+        jQuery('.obj02').addClass("hidden").viewportChecker({
+            classToAdd: 'visible animated zoomIn', // Class to add to the elements when they are visible
+            offset: 100    
+        }); 
+        jQuery('.obj03').addClass("hidden").viewportChecker({
+            classToAdd: 'visible animated zoomIn', // Class to add to the elements when they are visible
+            offset: 100    
+        });
+    });            
+</script>
