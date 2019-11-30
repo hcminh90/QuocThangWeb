@@ -3,8 +3,21 @@
 
 // Write your JavaScript code.
 function createrowdata(){
+    var custo = document.getElementById("CusID");
+    if(custo.value == null || custo.value == undefined ||  custo.value.length == 0){
+        alert("Vui lòng lựa chọn Khách hàng!");
+        return;
+    }
     var product = document.getElementById("ProductID");
+    if(product.value == null || product.value == undefined ||  product.value.length == 0){
+        alert("Vui lòng lựa chọn loại hàng!");
+        return;
+    }
     var Amount = document.getElementById("Amount");
+    if(Amount.value == null || Amount.value == undefined ||  Amount.value.length == 0 || Amount.value.replace(/,/g, "") == 0){
+        alert("Vui lòng nhập số lượng!");
+        return;
+    }
     var Price = document.getElementById("Price");
     var Pay = document.getElementById("Pay");
     var pri = document.getElementById("pri");
@@ -36,12 +49,64 @@ function createrowdata(){
     }
 }
 
+function validatePro(){
+    var proN = document.getElementById("ProdName");
+    if(proN.value == null || proN.value == undefined ||  proN.value.length == 0){
+        alert("Vui lòng nhập Tên sản phẩm!");
+        return false;
+    }
+    var priceTmp = document.getElementById("ProdPricetmp");
+    if(priceTmp.value == null || priceTmp.value == undefined ||  priceTmp.value.length == 0 || priceTmp.value.replace(/,/g, "") == 0){
+        alert("Vui lòng nhập giá tiền!");
+        return false;
+    }
+    var price = document.getElementById("ProdPrice");
+    price.value = priceTmp.replace(/,/g, "");
+    return true;
+}
+
+function validateCus(){
+    var cusN = document.getElementById("CusName");
+    if(cusN.value == null || cusN.value == undefined ||  cusN.value.length == 0){
+        alert("Vui lòng nhập Tên Khách hàng!");
+        return false;
+    }
+    var addr = document.getElementById("CusAddr");
+    if(addr.value == null || addr.value == undefined ||  addr.value.length == 0){
+        alert("Vui lòng nhập địa chỉ!");
+        return false;
+    }
+    var phone = document.getElementById("CusPhone");
+    if(phone.value == null || phone.value == undefined ||  phone.value.length == 0){
+        alert("Vui lòng nhập số điện thoại!");
+        return false;
+    }
+    return true;
+}
+
 function deleteOrder(el){
    // $(this).parents("tr").remove();
    //$("#"+el).parents("tr").remove();
    var table = document.getElementById("tbl_data");
     var stt = table.rows.length;
     table.deleteRow(el);
+    var OrderInfo = document.getElementById("OrderInfo");
+    var ordVal = OrderInfo.value;
+    if (ordVal.length > 0) { 
+        var ordArr = ordVal.split(";");
+        var reprocessdt = "";
+        for(var i = 0; i< ordArr.length; i++){
+            if(ordArr[i].split("~")[0] != el){
+                if(i==0){
+                    reprocessdt = ordArr[i];
+                }
+                else{
+                    reprocessdt = reprocessdt + ';' + ordArr[i];
+                }
+            }
+        }
+        OrderInfo.value = reprocessdt;
+    }
 }
 
 function prod_change(){

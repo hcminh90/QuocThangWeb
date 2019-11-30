@@ -1,0 +1,49 @@
+﻿@using warehouseCMS.Data
+@{
+    ViewData["Title"] = "Mhập Kho";
+}
+
+<div class="qtBox2">
+    <div class="qtBoxTitle">Nhập hàng</div>
+    <div class="qtBoxContent2">
+        @{
+            if(ViewBag.Error != "NO"){
+                if(ViewBag.Error == "SUCCESS"){
+                    <div class="success-msg">
+                        <i class="fa fa-check" style="font-size:20px;color:green;"></i> Thành công!
+                        <div>
+                            <a asp-area="" asp-controller="@ViewBag.BackController" asp-action="@ViewBag.BackAction">Thực hiện giao dịch khác?</a>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="error-msg">
+                        <i class="fa fa-warning" style="font-size:20px;color:red"></i> @ViewBag.Error
+                        <div>
+                            <a asp-area="" asp-controller="@ViewBag.BackController" asp-action="@ViewBag.BackAction">Thực hiện giao dịch khác?</a>
+                        </div>
+                    </div>
+                }
+            }
+        }
+        
+    </div>
+</div>
+
+<script type="text/javascript">
+    /*jQuery(document).ready(function() {
+        jQuery('.obj01').addClass("hidden").viewportChecker({
+            classToAdd: 'visible animated zoomIn', // Class to add to the elements when they are visible
+            offset: 100    
+        }); 
+        jQuery('.obj02').addClass("hidden").viewportChecker({
+            classToAdd: 'visible animated zoomIn', // Class to add to the elements when they are visible
+            offset: 100    
+        }); 
+        jQuery('.obj03').addClass("hidden").viewportChecker({
+            classToAdd: 'visible animated zoomIn', // Class to add to the elements when they are visible
+            offset: 100    
+        });
+    });   */         
+</script>

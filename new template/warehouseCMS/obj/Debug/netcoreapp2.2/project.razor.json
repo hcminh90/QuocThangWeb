@@ -3031,6 +3031,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\Administrator\\Documents\\Visual Code\\warehouseCMS\\Views\\WareHouse\\ResponeProcess.cshtml",
+      "TargetPath": "Views\\WareHouse\\ResponeProcess.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\Administrator\\Documents\\Visual Code\\warehouseCMS\\Views\\_ViewStart.cshtml",
       "TargetPath": "Views\\_ViewStart.cshtml",
       "FileKind": "mvc"
@@ -3048,6 +3053,11 @@
     {
       "FilePath": "c:\\Users\\Administrator\\Documents\\Visual Code\\warehouseCMS\\Views\\_ViewImports.cshtml",
       "TargetPath": "Views\\_ViewImports.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\Administrator\\Documents\\Visual Code\\warehouseCMS\\Views\\WareHouse\\ProductShow.cshtml",
+      "TargetPath": "Views\\WareHouse\\ProductShow.cshtml",
       "FileKind": "mvc"
     }
   ],

@@ -1,79 +1,45 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Khách hàng";
 }
 
-<div class="text-center">
-    <div class="menu">
-        <div class="title">Menu</div>
-        <div class="menu-content">
-            <div><a asp-area="" asp-controller="WareHouse" asp-action="CustomerShow">Danh sách khách hàng</a></div>
-            <div>Thêm khách hàng</div>
-        </div>
-    </div>
-    <div class="input-area">
-        @{
-            if(ViewBag.Error != "NO"){
-                if(ViewBag.Error == "SUCCESS"){
-                    <div class="success-msg">
-                        <i class="fa fa-check" style="font-size:20px;color:green;"></i> Thành công!
-                    </div>
-                }
-                else
-                {
-                    <div class="error-msg">
-                        <i class="fa fa-warning" style="font-size:20px;color:red"></i> @ViewBag.Error
-                    </div>
-                }
-            }
-        }
+<div class="qtBox2">
+    <div class="qtBoxTitle">Quản lý khách hàng</div>
+    <div class="qtBoxContent2">
         <form method = "post" asp-controller = "WareHouse" asp-action = "Customer" autocomplete="off">
-            <div class="form-panel">
-                <div class="title">Thông tin khách hàng/Nhà cung cấp</div>
-                <div class="form-row-r">
-                    <div class="col-25">
-                        <label for="CusName">Tên khách hàng: </label>
+            <div class="qtBoxNew obj01">
+                <div class="qtTitle2">Thông tin khách hàng/Nhà cung cấp</div>
+                    <div class="qtBoxContent2">
+                        <table border=0 cellpadding=0 cellspacing=0 height="100%" width="100%">
+                            <tr>
+                                <td style="height:23px;width:150px;">Tên khách hàng:</td><td><input type="text" id="CusName" name ="CusName" placeholder="Nhập tên khách hàng.." autocomplete="off"></td>
+                            </tr>
+                            <tr>
+                                <td style="height:23px;width:150px;">Mã số thuế:</td><td><input type="text" id="TaxID" name ="TaxID" placeholder="Mã số thuế.." autocomplete="off"></td>
+                            </tr>
+                            <tr>
+                                <td style="height:23px;width:150px;">Địa chỉ:</td><td><input type="text" id="CusAddr" name ="CusAddr" placeholder="Địa chỉ khách hàng.." autocomplete="off"></td>
+                            </tr>
+                            <tr>
+                                <td style="height:23px;width:150px;">Số điện thoại:</td><td><input type="text" id="CusPhone" name ="CusPhone" placeholder="Số điện thoại.." autocomplete="off"></td>
+                            </tr>
+                            <tr>
+                                <td style="height:23px;width:150px;">Email:</td><td><input type="text" id="CusEmail" name ="CusEmail" placeholder="Địa chỉ email.." autocomplete="off"></td>
+                            </tr>
+                        </table>
                     </div>
-                    <div class="col-75">
-                        <input type="text" id="CusName" name ="CusName" placeholder="Nhập tên khách hàng.." autocomplete="off">
-                    </div>
-                </div>
-                <div class="form-row-r">
-                    <div class="col-25">
-                        <label for="TaxID">Mã số thuế: </label>
-                    </div>
-                    <div class="col-75">
-                        <input type="text" id="TaxID" name ="TaxID" placeholder="Mã số thuế.." autocomplete="off">
-                    </div>
-                </div>
-                <div class="form-row-r">
-                    <div class="col-25">
-                        <label for="CusAddr">Địa chỉ: </label>
-                    </div>
-                    <div class="col-75">
-                        <input type="text" id="CusAddr" name ="CusAddr" placeholder="Địa chỉ khách hàng.." autocomplete="off" autocomplete="false">
-                    </div>
-                </div>
-                <div class="form-row-r">
-                    <div class="col-25">
-                        <label for="CusPhone">Số điện thoại: </label>
-                    </div>
-                    <div class="col-75">
-                        <input type="text" id="CusPhone" name ="CusPhone" placeholder="Số điện thoại.." autocomplete="off" autocomplete="false">
+                    <div style="text-align:right;">
+                        <input type="submit" class="qtbutton" value="Lưu" style="width:150px;margin-top:3px;">
                     </div>
                 </div>
-                <div class="form-row-r">
-                    <div class="col-25">
-                        <label for="CusEmail">Email: </label>
-                    </div>
-                    <div class="col-75">
-                        <input type="text" id="CusEmail" name ="CusEmail" placeholder="Địa chỉ email.." autocomplete="off" autocomplete="false">
-                    </div>
-                </div>
-                
-            </div>
-            <div class="submit-area">
-                    <input type="submit" value="Lưu" style="width:150px;">
             </div>
         </form>
     </div>
 </div>
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        jQuery('.obj01').addClass("hidden").viewportChecker({
+            classToAdd: 'visible animated zoomIn', // Class to add to the elements when they are visible
+            offset: 100    
+        });
+    });          
+</script>

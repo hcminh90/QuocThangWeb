@@ -116,8 +116,10 @@ namespace warehouseCMS.Controllers
             param = new Dictionary<string, string>();
             outdata = _da.FecthQuery(sqlText, param);
             ViewData["Products"] = outdata;
+            ViewBag.BackController = "WareHouse";
+            ViewBag.BackAction = "Input";
 
-            return View();
+            return View("ResponeProcess");
         }
 
         public IActionResult Output()
@@ -200,7 +202,10 @@ namespace warehouseCMS.Controllers
             outdata = _da.FecthQuery(sqlText, param);
             ViewData["Products"] = outdata;
 
-            return View();
+            ViewBag.BackController = "WareHouse";
+            ViewBag.BackAction = "Output";
+
+            return View("ResponeProcess");
         }
 
         public IActionResult Customer()
@@ -228,6 +233,15 @@ namespace warehouseCMS.Controllers
             return View();
         }
 
+        public IActionResult ProductShow()
+        {
+            string sqlText = "select * from products a;";
+            Dictionary<string, string> param = new Dictionary<string, string>();
+            DbFetchOutData outdata = _da.FecthQuery(sqlText, param);
+            ViewData["Products"] = outdata;
+            return View();
+        }
+
         [HttpPost]
         public IActionResult Customer(string CusName, string TaxID, string CusAddr, string CusPhone, string CusEmail)
         {
@@ -242,7 +256,10 @@ namespace warehouseCMS.Controllers
             param.Add("CUST_EMAIL",CusEmail);
             _da.ExecuteQuery("INS", sqlText, param, ref outdata);
             ViewBag.Error="SUCCESS";
-            return View();
+            ViewBag.BackController = "WareHouse";
+            ViewBag.BackAction = "Customer";
+
+            return View("ResponeProcess");
         }
 
         [HttpPost]
@@ -264,7 +281,10 @@ namespace warehouseCMS.Controllers
             param.Add("PROD_LAST_TIME_CHANGED",DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
             _da.ExecuteQuery("INS", sqlText, param, ref outdata);
             ViewBag.Error="SUCCESS";
-            return View();
+            ViewBag.BackController = "WareHouse";
+            ViewBag.BackAction = "Product";
+
+            return View("ResponeProcess");
         }
 
         public JsonResult PopulationChart()
@@ -275,6 +295,11 @@ namespace warehouseCMS.Controllers
         }
 
         public IActionResult Report()
+        {
+            return View();
+        }
+
+        public IActionResult ResponeProcess()
         {
             return View();
         }

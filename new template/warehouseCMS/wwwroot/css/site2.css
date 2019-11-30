@@ -252,6 +252,13 @@ body {
   padding: 5px 30px;
   cursor:pointer;
 }
+.hder{
+  height: 100%;
+  width: 100%;
+  -webkit-box-shadow: #666 0px 2px 3px;
+  -moz-box-shadow: #666 0px 2px 3px;
+  box-shadow: #666 0px 2px 3px;
+}
 .qthltbl tr th{
   height: 30px;
   border: 1px solid #73aad6;
@@ -263,6 +270,7 @@ body {
 
 .tblshow tr th{
   height: 30px;
+  border: 1px solid #73aad6;
 }
 .tblshow tr td{
   height: 30px;
@@ -276,3 +284,21 @@ width: 150px;
 .qtBoxContent2 select{
   width: 150px;
   }
+.chart_wrap{
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 100%;
+}
+.chart{
+  position: absolute;
+  width: 100%;
+}
+.qtmenuitem{
+  background-color: #ddeef6;
+  padding: 5px 3px;
+  text-decoration: none;
+  cursor:pointer;
+}
+.qtmenuitem a{
+  text-decoration: none;
+}

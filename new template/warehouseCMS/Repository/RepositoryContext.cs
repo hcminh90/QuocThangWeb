@@ -18,6 +18,8 @@ namespace warehouseCMS.Repository
         public DbFetchOutData FecthQuery(string sqlText, Dictionary<string, string> param)
         {
             //_logger.LogDebug("FecthQuery");
+            //ResultObj Rsobj = new ResultObj();
+            //Rsobj.Name = "ERR_MSG";
             DbConnection connection = null;
             DbCommand cmd = null;
             DbFetchOutData OutData = null;

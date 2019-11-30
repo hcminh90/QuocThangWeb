@@ -1,56 +1,26 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Mặt hàng";
 }
 
-<div class="text-center">
-    <div class="menu">
-        <div class="title">Menu</div>
-        <div class="menu-content">
-            <div>Danh sách sản phẩm</div>
-            <div>Thêm sản phẩm</div>
-        </div>
-    </div>
-    <div class="input-area">
-        @{
-            if(ViewBag.Error != "NO"){
-                if(ViewBag.Error == "SUCCESS"){
-                    <div class="success-msg">
-                        <i class="fa fa-check" style="font-size:20px;color:green;"></i> Thành công!
-                    </div>
-                }
-                else
-                {
-                    <div class="error-msg">
-                        <i class="fa fa-warning" style="font-size:20px;color:red"></i> @ViewBag.Error
-                    </div>
-                }
-            }
-        }
-        <form method = "post" asp-controller = "WareHouse" asp-action = "Product" autocomplete="off">
-            <div class="form-panel">
-                <div class="title">Thông tin sản phẩm</div>
-                <div class="form-row-r">
-                    <div class="col-25">
-                        <label for="ProdName">Tên sản phẩm: </label>
-                    </div>
-                    <div class="col-75">
-                        <input type="text" id="ProdName" name ="ProdName" placeholder="Nhập tên sản phảm.." autocomplete="off">
-                    </div>
-                </div>
-                <div class="form-row-r">
-                    <div class="col-25">
-                        <label for="ProdDesc">Mô tả: </label>
-                    </div>
-                    <div class="col-75">
-                        <input type="text" id="ProdDesc" name ="ProdDesc" placeholder="Mô tả sản phẩm.." autocomplete="off">
-                    </div>
-                </div>
-                <div class="form-row-r">
-                    <div class="col-25">
-                        <label for="ProdIUnit">Đơn vị tính: </label>
-                    </div>
-                    <div class="col-75">
-                        <select name="ProdIUnit">
+<div class="qtBox2">
+    <div class="qtBoxTitle">Quản lý khách hàng</div>
+    <div class="qtBoxContent2">
+        <form method = "post" asp-controller = "WareHouse" asp-action = "Product" autocomplete="off" onsubmit="return validatePro()">
+            <div class="qtBoxNew obj01">
+                <div class="qtTitle2">Thông tin sản phẩm</div>
+                <div class="qtBoxContent2">
+                <table border=0 cellpadding=0 cellspacing=0 height="100%" width="100%">
+                    <tr>
+                        <td style="height:23px;width:150px;">Tên sản phẩm:</td>
+                        <td><input type="text" id="ProdName" name ="ProdName" placeholder="Nhập tên sản phảm.." autocomplete="off"></td>
+                    </tr>
+                    <tr>
+                        <td style="height:23px;width:150px;">Mô tả:</td>
+                        <td><input type="text" id="ProdDesc" name ="ProdDesc" placeholder="Mô tả sản phẩm.." autocomplete="off"></td>
+                    </tr>
+                    <tr>
+                        <td style="height:23px;width:150px;">Đơn vị tính:</td>
+                        <td><select name="ProdIUnit">
                             <option value='kg'>Kilogram</option>
                             <option value='tan'>Tấn</option>
                             <option value='ta'>Tạ</option>
@@ -59,22 +29,30 @@
                             <option value='hop'>Hộp</option>
                             <option value='thung'>Thùng</option>
                             <option value='con'>Con</option>
-                        </select>
-                    </div>
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td style="height:23px;width:150px;">Giá:</td>
+                        <td>
+                            <input type="text" id="ProdPricetmp" placeholder="Giá..." autocomplete="off" >
+                            <input type="hidden" id="ProdPrice" name ="ProdPrice">
+                            <script type="text/javascript">$("#ProdPricetmp").maskMoney({thousands:',', allowZero: true, precision: 0, allowEmpty:false, suffix:""});</script>
+                        </td>
+                    </tr>
+                </table>
+                <div style="text-align:right;">
+                        <input type="submit" class="qtbutton" value="Lưu" style="width:150px;margin-top:3px;">
                 </div>
-                <div class="form-row-r">
-                    <div class="col-25">
-                        <label for="ProdPrice">Giá: </label>
-                    </div>
-                    <div class="col-75">
-                        <input type="text" id="ProdPrice" name ="ProdPrice" placeholder="Giá..." autocomplete="off" autocomplete="false">
-                    </div>
                 </div>
-                
-            </div>
-            <div class="submit-area">
-                    <input type="submit" value="Lưu" style="width:150px;">
             </div>
         </form>
     </div>
 </div>
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        jQuery('.obj01').addClass("hidden").viewportChecker({
+            classToAdd: 'visible animated zoomIn', // Class to add to the elements when they are visible
+            offset: 100    
+        });
+    });          
+</script>
