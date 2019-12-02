@@ -29,14 +29,23 @@ namespace warehouseCMS.Controllers
 
         public IActionResult Input()
         {
+            string exp="";
             string sqlText = "select * from customers a;";
             Dictionary<string, string> param = new Dictionary<string, string>();
-            DbFetchOutData outdata = _da.FecthQuery(sqlText, param);
+            DbFetchOutData outdata = _da.FecthQuery(sqlText, param, ref exp);
+            if(exp != "000000"){
+                ViewBag.Error = exp;
+                return View("ErrorPage");
+            }
             ViewData["Customers"] = outdata;
 
             sqlText = "select * from products a;";
             param = new Dictionary<string, string>();
-            outdata = _da.FecthQuery(sqlText, param);
+            outdata = _da.FecthQuery(sqlText, param, ref exp);
+            if(exp != "000000"){
+                ViewBag.Error = exp;
+                return View("ErrorPage");
+            }
             ViewData["Products"] = outdata;
             ViewBag.Error="NO";
             return View();
@@ -44,11 +53,11 @@ namespace warehouseCMS.Controllers
 
         public string GetUserID(string user_name)
         {
-            
+            string exp = "";
             string sqlTextuser = "SELECT * FROM users WHERE USER_PEOPLE_ID = @username;";
             Dictionary<string, string> paramUser = new Dictionary<string, string>();
             paramUser.Add("username",user_name);
-            DbFetchOutData outuser = _da.FecthQuery(sqlTextuser, paramUser);
+            DbFetchOutData outuser = _da.FecthQuery(sqlTextuser, paramUser, ref exp);
             var userid = outuser.Data[0]["USER_ID"];
             return userid;
         }
@@ -58,6 +67,7 @@ namespace warehouseCMS.Controllers
         {
             Console.WriteLine("CusID :" + CusID);
             Console.WriteLine("OrderInfo :" + OrderInfo);
+            string exp = "";
             var cus = CusID.Split('-')[0];
             Console.WriteLine("cus :" + cus);
             var loggedInUser = HttpContext.User;
@@ -73,7 +83,11 @@ namespace warehouseCMS.Controllers
                 List<ParamObj> paramPro = new List<ParamObj>();
                 ParamObj par = new ParamObj("outtax_id","",DbType.String, ParameterDirection.Output);
                 paramPro.Add(par);
-                List<ResultObj> execPro = _da.ExecuteProcedure("ProcGenTax", paramPro);
+                List<ResultObj> execPro = _da.ExecuteProcedure("ProcGenTax", paramPro, ref exp);
+                if(exp != "000000"){
+                    ViewBag.Error = exp;
+                    return View("ErrorPage");
+                }
                 if(execPro != null){
                     taxid = execPro[0].Value;
                     Console.WriteLine("taxid :" + taxid);
@@ -99,7 +113,11 @@ namespace warehouseCMS.Controllers
                     param.Add("TRANSACTION","buy");
                     param.Add("TRANSACTION_DESC","buy");
                     param.Add("PROD_UNIT_PRICE",fields[5]);
-                    _da.ExecuteQuery("INS", sqlText, param, ref outdata);
+                    _da.ExecuteQuery("INS", sqlText, param, ref outdata, ref exp);
+                    if(exp != "000000"){
+                        ViewBag.Error = exp;
+                        return View("ErrorPage");
+                    }
                 }
                 ViewBag.Error="SUCCESS";
             }
@@ -109,12 +127,20 @@ namespace warehouseCMS.Controllers
 
             sqlText = "select * from customers a;";
             param = new Dictionary<string, string>();
-            outdata = _da.FecthQuery(sqlText, param);
+            outdata = _da.FecthQuery(sqlText, param, ref exp);
+            if(exp != "000000"){
+                ViewBag.Error = exp;
+                return View("ErrorPage");
+            }
             ViewData["Customers"] = outdata;
 
             sqlText = "select * from products a;";
             param = new Dictionary<string, string>();
-            outdata = _da.FecthQuery(sqlText, param);
+            outdata = _da.FecthQuery(sqlText, param, ref exp);
+            if(exp != "000000"){
+                ViewBag.Error = exp;
+                return View("ErrorPage");
+            }
             ViewData["Products"] = outdata;
             ViewBag.BackController = "WareHouse";
             ViewBag.BackAction = "Input";
@@ -124,14 +150,23 @@ namespace warehouseCMS.Controllers
 
         public IActionResult Output()
         {
+            string exp = "";
             string sqlText = "select * from customers a;";
             Dictionary<string, string> param = new Dictionary<string, string>();
-            DbFetchOutData outdata = _da.FecthQuery(sqlText, param);
+            DbFetchOutData outdata = _da.FecthQuery(sqlText, param, ref exp);
+            if(exp != "000000"){
+                ViewBag.Error = exp;
+                return View("ErrorPage");
+            }
             ViewData["Customers"] = outdata;
 
             sqlText = "select * from products a;";
             param = new Dictionary<string, string>();
-            outdata = _da.FecthQuery(sqlText, param);
+            outdata = _da.FecthQuery(sqlText, param, ref exp);
+            if(exp != "000000"){
+                ViewBag.Error = exp;
+                return View("ErrorPage");
+            }
             ViewData["Products"] = outdata;
             ViewBag.Error="NO";
 
@@ -143,6 +178,7 @@ namespace warehouseCMS.Controllers
         {
             Console.WriteLine("CusID :" + CusID);
             Console.WriteLine("OrderInfo :" + OrderInfo);
+            string exp = "";
             var cus = CusID.Split('-')[0];
             Console.WriteLine("cus :" + cus);
             var loggedInUser = HttpContext.User;
@@ -158,7 +194,11 @@ namespace warehouseCMS.Controllers
                 List<ParamObj> paramPro = new List<ParamObj>();
                 ParamObj par = new ParamObj("outtax_id","",DbType.String, ParameterDirection.Output);
                 paramPro.Add(par);
-                List<ResultObj> execPro = _da.ExecuteProcedure("ProcGenTax", paramPro);
+                List<ResultObj> execPro = _da.ExecuteProcedure("ProcGenTax", paramPro, ref exp);
+                if(exp != "000000"){
+                    ViewBag.Error = exp;
+                    return View("ErrorPage");
+                }
                 if(execPro != null){
                     taxid = execPro[0].Value;
                     Console.WriteLine("taxid :" + taxid);
@@ -184,7 +224,11 @@ namespace warehouseCMS.Controllers
                     param.Add("TRANSACTION","sell");
                     param.Add("TRANSACTION_DESC","sell");
                     param.Add("PROD_UNIT_PRICE",fields[5]);
-                    _da.ExecuteQuery("INS", sqlText, param, ref outdata);
+                    _da.ExecuteQuery("INS", sqlText, param, ref outdata, ref exp);
+                    if(exp != "000000"){
+                        ViewBag.Error = exp;
+                        return View("ErrorPage");
+                    }
                 }
                 ViewBag.Error="SUCCESS";
             }
@@ -194,12 +238,20 @@ namespace warehouseCMS.Controllers
 
             sqlText = "select * from customers a;";
             param = new Dictionary<string, string>();
-            outdata = _da.FecthQuery(sqlText, param);
+            outdata = _da.FecthQuery(sqlText, param, ref exp);
+            if(exp != "000000"){
+                ViewBag.Error = exp;
+                return View("ErrorPage");
+            }
             ViewData["Customers"] = outdata;
 
             sqlText = "select * from products a;";
             param = new Dictionary<string, string>();
-            outdata = _da.FecthQuery(sqlText, param);
+            outdata = _da.FecthQuery(sqlText, param, ref exp);
+            if(exp != "000000"){
+                ViewBag.Error = exp;
+                return View("ErrorPage");
+            }
             ViewData["Products"] = outdata;
 
             ViewBag.BackController = "WareHouse";
@@ -216,18 +268,28 @@ namespace warehouseCMS.Controllers
 
         public IActionResult CustomerShow()
         {
+            string exp = "";
             string sqlText = "select * from customers a;";
             Dictionary<string, string> param = new Dictionary<string, string>();
-            DbFetchOutData outdata = _da.FecthQuery(sqlText, param);
+            DbFetchOutData outdata = _da.FecthQuery(sqlText, param, ref exp);
+            if(exp != "000000"){
+                ViewBag.Error = exp;
+                return View("ErrorPage");
+            }
             ViewData["Customers"] = outdata;
             return View();
         }
 
         public IActionResult Product()
         {
+            string exp = "";
             string sqlText = "select * from products a;";
             Dictionary<string, string> param = new Dictionary<string, string>();
-            DbFetchOutData outdata = _da.FecthQuery(sqlText, param);
+            DbFetchOutData outdata = _da.FecthQuery(sqlText, param, ref exp);
+            if(exp != "000000"){
+                ViewBag.Error = exp;
+                return View("ErrorPage");
+            }
             ViewData["Products"] = outdata;
             ViewBag.Error="NO";
             return View();
@@ -235,9 +297,14 @@ namespace warehouseCMS.Controllers
 
         public IActionResult ProductShow()
         {
+            string exp = "";
             string sqlText = "select * from products a;";
             Dictionary<string, string> param = new Dictionary<string, string>();
-            DbFetchOutData outdata = _da.FecthQuery(sqlText, param);
+            DbFetchOutData outdata = _da.FecthQuery(sqlText, param, ref exp);
+            if(exp != "000000"){
+                ViewBag.Error = exp;
+                return View("ErrorPage");
+            }
             ViewData["Products"] = outdata;
             return View();
         }
@@ -245,6 +312,7 @@ namespace warehouseCMS.Controllers
         [HttpPost]
         public IActionResult Customer(string CusName, string TaxID, string CusAddr, string CusPhone, string CusEmail)
         {
+            string exp = "";
             DbFetchOutData outdata = new DbFetchOutData();
             Dictionary<string, string> param;
             string  sqlText = "INSERT INTO customers(CUST_NAME, CUST_TAX, CUST_ADDRESS, CUST_PHONE_NUMBER, CUST_EMAIL) values(@CUST_NAME, @CUST_TAX, @CUST_ADDRESS, @CUST_PHONE_NUMBER, @CUST_EMAIL)";
@@ -254,7 +322,11 @@ namespace warehouseCMS.Controllers
             param.Add("CUST_ADDRESS",CusAddr);
             param.Add("CUST_PHONE_NUMBER",CusPhone);
             param.Add("CUST_EMAIL",CusEmail);
-            _da.ExecuteQuery("INS", sqlText, param, ref outdata);
+            _da.ExecuteQuery("INS", sqlText, param, ref outdata, ref exp);
+            if(exp != "000000"){
+                ViewBag.Error = exp;
+                return View("ErrorPage");
+            }
             ViewBag.Error="SUCCESS";
             ViewBag.BackController = "WareHouse";
             ViewBag.BackAction = "Customer";
@@ -265,6 +337,7 @@ namespace warehouseCMS.Controllers
         [HttpPost]
         public IActionResult Product(string ProdName, string ProdDesc, string ProdIUnit, string ProdPrice)
         {
+            string exp = "";
             var loggedInUser = HttpContext.User;
             var user_name = loggedInUser.Identity.Name;
             var user_id = GetUserID(user_name);
@@ -279,7 +352,11 @@ namespace warehouseCMS.Controllers
             param.Add("PROD_AMOUNT","0");
             param.Add("PROD_LAST_USER_CHANGED",user_id);
             param.Add("PROD_LAST_TIME_CHANGED",DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
-            _da.ExecuteQuery("INS", sqlText, param, ref outdata);
+            _da.ExecuteQuery("INS", sqlText, param, ref outdata, ref exp);
+            if(exp != "000000"){
+                ViewBag.Error = exp;
+                return View("ErrorPage");
+            }
             ViewBag.Error="SUCCESS";
             ViewBag.BackController = "WareHouse";
             ViewBag.BackAction = "Product";

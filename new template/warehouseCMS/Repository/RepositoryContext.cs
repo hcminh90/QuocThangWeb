@@ -15,11 +15,12 @@ namespace warehouseCMS.Repository
         public RepositoryContext(CmsContext context){
             _context = context;
         }
-        public DbFetchOutData FecthQuery(string sqlText, Dictionary<string, string> param)
+        public DbFetchOutData FecthQuery(string sqlText, Dictionary<string, string> param, ref string exception)
         {
             //_logger.LogDebug("FecthQuery");
             //ResultObj Rsobj = new ResultObj();
             //Rsobj.Name = "ERR_MSG";
+            string exp = "000000";
             DbConnection connection = null;
             DbCommand cmd = null;
             DbFetchOutData OutData = null;
@@ -38,6 +39,7 @@ namespace warehouseCMS.Repository
             {
                 Console.WriteLine("Exception: " + e.Message);
                 //_logger.LogError(e.Message);
+                exp = e.Message;
             }
             finally{
                 try
@@ -46,18 +48,23 @@ namespace warehouseCMS.Repository
                     {
                         cmd.Dispose();
                     }
-                    connection.Close();
+                    if(connection != null){
+                        connection.Close();
+                    }
                 }
                 catch(Exception e)
                 {
                     Console.WriteLine("Exception: " + e.Message);
+                    exp = e.Message;
                 }
             }
+            exception = exp;
             return OutData;
         }
 
-        public DbFetchOutData ExecuteReaderProcedure(string sqlText, List<ParamObj> param)
+        public DbFetchOutData ExecuteReaderProcedure(string sqlText, List<ParamObj> param, ref string exception)
         {
+            string exp = "000000";
             DbFetchOutData OutData = null; 
             DbConnection connection = null;
             DbCommand cmd = null;
@@ -107,6 +114,7 @@ namespace warehouseCMS.Repository
             {
                 Console.WriteLine("Exception: " + e.Message);
                 //_logger.LogError(e.Message);
+                exp = e.Message;
             }
             finally{
                 try
@@ -115,18 +123,23 @@ namespace warehouseCMS.Repository
                     {
                         cmd.Dispose();
                     }
-                    connection.Close();
+                    if(connection != null){
+                        connection.Close();
+                    }
                 }
                 catch(Exception e)
                 {
                     Console.WriteLine("Exception: " + e.Message);
+                    exp = e.Message;
                 }
             }
+            exception = exp;
             return OutData;
         }
 
-        public List<ResultObj> ExecuteProcedure(string sqlText, List<ParamObj> param)
+        public List<ResultObj> ExecuteProcedure(string sqlText, List<ParamObj> param, ref string exception)
         {
+            string exp = "000000";
             List<ResultObj> result = new List<ResultObj>();
             DbConnection connection = null;
             DbCommand cmd = null;
@@ -165,6 +178,7 @@ namespace warehouseCMS.Repository
             {
                 Console.WriteLine("Exception: " + e.Message);
                 //_logger.LogError(e.Message);
+                exp = e.Message;
             }
             finally{
                 try
@@ -173,18 +187,23 @@ namespace warehouseCMS.Repository
                     {
                         cmd.Dispose();
                     }
-                    connection.Close();
+                    if(connection != null){
+                        connection.Close();
+                    }
                 }
                 catch(Exception e)
                 {
                     Console.WriteLine("Exception: " + e.Message);
+                    exp = e.Message;
                 }
             }
+            exception = exp;
             return result;
         }
 
-        public void ExecuteQuery(string queryType, string sqlText, Dictionary<string, string> param, ref DbFetchOutData outdata)
+        public void ExecuteQuery(string queryType, string sqlText, Dictionary<string, string> param, ref DbFetchOutData outdata, ref string exception)
         {
+            string exp = "000000";
             DbConnection connection = null;
             DbCommand cmd = null;
             try
@@ -227,6 +246,7 @@ namespace warehouseCMS.Repository
             {
                 Console.WriteLine("Exception: " + e.Message);
                 //_logger.LogError(e.Message);
+                exp = e.Message;
             }
             finally{
                 try
@@ -235,13 +255,17 @@ namespace warehouseCMS.Repository
                     {
                         cmd.Dispose();
                     }
-                    connection.Close();
+                    if(connection != null){
+                        connection.Close();
+                    }
                 }
                 catch(Exception e)
                 {
                     Console.WriteLine("Exception: " + e.Message);
+                    exp = e.Message;
                 }
             }
+            exception = exp;
         }
 
         public DbCommand BuildCommand(DbConnection con, string sqlText, Dictionary<string, string> param)

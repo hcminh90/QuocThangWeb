@@ -55,11 +55,12 @@ namespace warehouseCMS.Controllers
         public async Task<IActionResult> Login(string username, string password, string remeberme)
         {
             bool RemeberMe = false;
+            string exp ="";
             if(remeberme == "1")
             {
                 RemeberMe = true;
             }
-            if(IdentityUser(username, password))
+            if(IdentityUser(username, password, ref exp))
             {
                 var claims = new List<Claim>
                 {
@@ -83,8 +84,13 @@ namespace warehouseCMS.Controllers
                 //Just redirect to our index after logging in. 
                 return Redirect("/");//RedirectToAction("Home","Index");
             }
-            
-            ViewData["Error"] = "Tên đăng nhập hoặc mật khẩu không hợp lệ!";
+            if(exp != "000000"){
+                ViewData["Error"] = exp;
+                return View("ErrorPage");
+            }
+            else{
+                ViewData["Error"] = "Tên đăng nhập hoặc mật khẩu không hợp lệ!";
+            }
             return View();
         }
 
@@ -102,19 +108,24 @@ namespace warehouseCMS.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public bool IdentityUser(string username, string password)
+        public bool IdentityUser(string username, string password, ref string expp)
         {
             if(string.IsNullOrWhiteSpace(password)){
                 return false;
             }
+            string exp = "";
             string sqlText = "SELECT * FROM users WHERE USER_PEOPLE_ID = @username;";
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("username",username);
-            DbFetchOutData outdata = _da.FecthQuery(sqlText, param);
+            DbFetchOutData outdata = _da.FecthQuery(sqlText, param, ref exp);
             //ViewData["CbPost"] = outdata;
             /*SetPassWord(password, _encrypter);
             Console.WriteLine("Salt: " + Salt);
             Console.WriteLine("Password: " + Password);*/
+            expp = exp;
+            if(exp != "000000"){
+                return false;
+            }
             if(outdata.Data.Count>0)
             {
                 var dbSalt = outdata.Data[0]["PWD_SALT"];

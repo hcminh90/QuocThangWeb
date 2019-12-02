@@ -24,9 +24,14 @@ namespace warehouseCMS.Controllers
 
         public IActionResult Index()
         {
+            string exp="";
             string sqlText = "select * from products a  LIMIT  20;";
             Dictionary<string, string> param = new Dictionary<string, string>();
-            DbFetchOutData outdata = _da.FecthQuery(sqlText, param);
+            DbFetchOutData outdata = _da.FecthQuery(sqlText, param, ref exp);
+            if(exp != "000000"){
+                ViewBag.Error = exp;
+                return View("ErrorPage");
+            }
             ViewData["Products"] = outdata;
 
             sqlText = "select * from ("+
@@ -38,12 +43,20 @@ namespace warehouseCMS.Controllers
                         "TIMESTAMP "+
                         "FROM qt.transactions a order by TIMESTAMP desc) as a LIMIT 10;";
             param = new Dictionary<string, string>();
-            outdata = _da.FecthQuery(sqlText, param);
+            outdata = _da.FecthQuery(sqlText, param, ref exp);
+            if(exp != "000000"){
+                ViewBag.Error = exp;
+                return View("ErrorPage");
+            }
             ViewData["Transactions"] = outdata;
 
             sqlText = "select * from customers a;";
             param = new Dictionary<string, string>();
-            outdata = _da.FecthQuery(sqlText, param);
+            outdata = _da.FecthQuery(sqlText, param, ref exp);
+            if(exp != "000000"){
+                ViewBag.Error = exp;
+                return View("ErrorPage");
+            }
             ViewData["Customers"] = outdata;
 
             DateTime now = DateTime.Now;
@@ -52,7 +65,11 @@ namespace warehouseCMS.Controllers
             List<ParamObj> paramPro = new List<ParamObj>();
             paramPro.Add(new ParamObj("start_date",sDate,DbType.Date, ParameterDirection.Input));
             paramPro.Add(new ParamObj("end_date",DateTime.Now.ToString(),DbType.Date, ParameterDirection.Input));
-            DbFetchOutData outdataPro = _da.ExecuteReaderProcedure("ProcDashBoard", paramPro);
+            DbFetchOutData outdataPro = _da.ExecuteReaderProcedure("ProcDashBoard", paramPro, ref exp);
+            if(exp != "000000"){
+                ViewBag.Error = exp;
+                return View("ErrorPage");
+            }
             ViewData["Report"] = outdataPro;
             //Console.WriteLine("AMOUNT_TRAN: " + outdataPro.Data[0]["AMOUNT_TRAN"]);
 

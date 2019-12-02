@@ -12,18 +12,18 @@
         <div class="qtBoxNew obj01">
             <div class="qtTitle2">Danh sách các sản phẩm</div>
             <div class="qtBoxContent2">
-                <table border=0 cellpadding=0 cellspacing=0 width="100%" height="100%">
-                    <tr><th>Mã khách hàng</th><th>Mã số thuế</th><th>Địa chỉ</th><th>Số điện thoại</th><th>Email</th><th></th></tr>
+                <table border=0 cellpadding=0 cellspacing=0 width="100%" height="100%" class="tblshow">
+                    <tr><th style="text-align:center;width:100px;">Mã khách hàng</th><th>Tên khách hàng</th><th>Mã số thuế</th><th>Địa chỉ</th><th>Số điện thoại</th><th>Email</th><th style="text-align:center;width:80px;"></th></tr>
                     @foreach (var row in data)
                     {
                         <tr>
-                            <td>@row["CUST_ID"]</td>
+                            <td style="text-align:center">@row["CUST_ID"]</td>
                             <td>@row["CUST_NAME"]</td>
                             <td>@row["CUST_TAX"]</td>
                             <td>@row["CUST_ADDRESS"]</td>
                             <td>@row["CUST_PHONE_NUMBER"]</td>
                             <td>@row["CUST_EMAIL"]</td>
-                            <td><a href="#">Cập nhật</a></td>
+                            <td style="text-align:center"><a href="#">Cập nhật</a></td>
                         </tr>
                     }
                 </table>

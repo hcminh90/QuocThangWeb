@@ -79,3 +79,4 @@ C:\Users\Administrator\Documents\Visual Code\warehouseCMS\obj\Debug\netcoreapp2.
 C:\Users\Administrator\Documents\Visual Code\warehouseCMS\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_Layout2.g.cshtml.cs
 C:\Users\Administrator\Documents\Visual Code\warehouseCMS\obj\Debug\netcoreapp2.2\Razor\Views\WareHouse\ResponeProcess.g.cshtml.cs
 C:\Users\Administrator\Documents\Visual Code\warehouseCMS\obj\Debug\netcoreapp2.2\Razor\Views\WareHouse\ProductShow.g.cshtml.cs
+C:\Users\Administrator\Documents\Visual Code\warehouseCMS\obj\Debug\netcoreapp2.2\Razor\Views\Account\ErrorPage.g.cshtml.cs

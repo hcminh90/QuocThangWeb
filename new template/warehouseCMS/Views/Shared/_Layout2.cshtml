@@ -77,22 +77,27 @@
                         <td class="qtmenu">
                             <div class="qtmenumenu">
                                 <div class="menuTitle">Menu</div>
-                                <div class="qtmenuitem"><a asp-area="" asp-controller="Home" asp-action="Index"><i class="fa fa-home"></i> Trang chủ</a></div>
-                                <div class="qtmenuitem"><a asp-area="" asp-controller="WareHouse" asp-action="Input"><i class="fa fa-database" ></i> Nhập kho</a></div>
-                                <div class="qtmenuitem"><a asp-area="" asp-controller="WareHouse" asp-action="Output"><i class="fa fa-truck"></i> Xuất kho</a></div>
-                                <div class="qtmenuitem"><a asp-area="" asp-controller="WareHouse" asp-action="Customer"><i class="fa fa-address-book"></i> Khách hàng</a></div>
-                                @{
-                                    if(action == "Customer" || action == "CustomerShow"){
+                                @if (!string.IsNullOrEmpty(loggedInUser.Identity.Name))
+                                {
+                                    <div class="qtmenuitem"><a asp-area="" asp-controller="Home" asp-action="Index"><i class="fa fa-home"></i> Trang chủ</a></div>
+                                    <div class="qtmenuitem"><a asp-area="" asp-controller="WareHouse" asp-action="Input"><i class="fa fa-database" ></i> Nhập kho</a></div>
+                                    <div class="qtmenuitem"><a asp-area="" asp-controller="WareHouse" asp-action="Output"><i class="fa fa-truck"></i> Xuất kho</a></div>
+                                    <div class="qtmenuitem"><a asp-area="" asp-controller="WareHouse" asp-action="Customer"><i class="fa fa-address-book"></i> Khách hàng</a></div>
+                                    if(action == "Customer" || action == "CustomerShow")
+                                    {
                                         <div class="qtmenuitemSub"><a asp-area="" asp-controller="WareHouse" asp-action="CustomerShow"> Danh sách khách hàng</a></div>
                                     }
-                                }
-                                <div class="qtmenuitem"><a asp-area="" asp-controller="WareHouse" asp-action="Product"><i class="fa fa-product-hunt"></i> Sản phẩm</a></div>
-                                @{
-                                    if(action == "Product" || action == "ProductShow"){
+                                    
+                                    <div class="qtmenuitem"><a asp-area="" asp-controller="WareHouse" asp-action="Product"><i class="fa fa-product-hunt"></i> Sản phẩm</a></div>
+                                    if(action == "Product" || action == "ProductShow")
+                                    {
                                         <div class="qtmenuitemSub"><a asp-area="" asp-controller="WareHouse" asp-action="ProductShow"> Danh sách sản phẩm</a></div>
                                     }
+                                    <div class="qtmenuitem"><a asp-area="" asp-controller="WareHouse" asp-action="Report"><i class="fa fa-pie-chart"></i> Xuất báo cáo</a></div>
                                 }
-                                <div class="qtmenuitem"><a asp-area="" asp-controller="WareHouse" asp-action="Report"><i class="fa fa-pie-chart"></i> Xuất báo cáo</a></div>
+                                else{
+                                    <div></div>
+                                }
                             </div>
                         </td>
                         <td style="padding: 2px;">
