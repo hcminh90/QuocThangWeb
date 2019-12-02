@@ -110,10 +110,12 @@ namespace warehouseCMS.Controllers
 
         public bool IdentityUser(string username, string password, ref string expp)
         {
+            string exp = "000000";
             if(string.IsNullOrWhiteSpace(password)){
+                expp = exp;
                 return false;
             }
-            string exp = "";
+            
             string sqlText = "SELECT * FROM users WHERE USER_PEOPLE_ID = @username;";
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("username",username);

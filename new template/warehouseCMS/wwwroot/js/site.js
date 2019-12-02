@@ -33,7 +33,7 @@ function createrowdata(){
     row.insertCell(3).innerHTML = Price.value;
     row.insertCell(4).innerHTML = Pay.value;
     row.insertCell(5).innerHTML = '';*/
-    var nRow = "<tr><td>"+stt+"</td><td>"+prodName+"</td><td>"+Amount.value+"</td><td>"+Price.value+"</td><td>"+Pay.value+"</td><td style='text-align:center;''><a class='qtbuttonDel' id='row"+stt+"' onclick='deleteOrder("+stt+");'>Xóa</a></td></tr>";
+    var nRow = "<tr><td style='text-align:center'>"+stt+"</td><td>"+prodName+"</td><td>"+Amount.value+"</td><td>"+Price.value+"</td><td>"+Pay.value+"</td><td style='text-align:center;''><a class='qtbuttonDel' id='row"+stt+"' onclick='deleteOrder("+stt+");'>Xóa</a></td></tr>";
     $("#tbl_data").append(nRow);
 
     var dt = stt + '~' + product.value.split("-")[0] + '~' 

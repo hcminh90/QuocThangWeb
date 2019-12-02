@@ -320,3 +320,57 @@ width: 150px;
 .qtmenuitem a{
   text-decoration: none;
 }
+.error-zone{
+  height: 100%;
+  text-align: center;
+}
+.error-panel{
+  width: 600px;
+  height: 300px;
+  border: 1px solid #9b9b9b;
+  -webkit-border-radius: 8px 8px 0px 0px;
+  -moz-border-radius: 8px 8px 0px 0px;
+  border-radius: 8px 8px 0px 0px;
+  behavior: url(/css/pie/PIE.htc);
+  padding: 2px;
+  margin: auto;
+}
+.error-title{
+  height: 30px;
+  background: #ff9a96;
+  background: -webkit-gradient(linear, 0 0, 0 bottom, from(#ff9a96), to(#ff8480));
+  background: -webkit-linear-gradient(#ff9a96, #ff8480);
+  background: -moz-linear-gradient(#ff9a96, #ff8480);
+  background: -ms-linear-gradient(#ff9a96, #ff8480);
+  background: -o-linear-gradient(#ff9a96, #ff8480);
+  background: linear-gradient(#ff9a96, #ff8480);
+  -pie-background: linear-gradient(#ff9a96, #ff8480);
+  behavior: url(/css/pie/PIE.htc);
+  -webkit-border-radius: 6px 6px 0px 0px;
+  -moz-border-radius: 6px 6px 0px 0px;
+  border-radius: 6px 6px 0px 0px;
+  text-align: center;
+  font-size: 16px;
+  color:#fff;
+  padding-left: 5px;
+  padding-top: 5px;
+  text-align: left;
+}
+.error-content{
+  padding: 5px;
+  text-align: left;
+  height: 240px;
+  font-size: 14px;
+}
+.error-contact{
+  height: 24px;
+  font-weight: bold;
+  padding-top:5px;
+  background: #ff8480;
+  background: -webkit-gradient(linear, 0 0, 0 bottom, from(#ff8480), to(#ff9a96));
+  background: -webkit-linear-gradient(#ff8480, #ff9a96);
+  background: -moz-linear-gradient(#ff8480, #ff9a96);
+  background: -ms-linear-gradient(#ff8480, #ff9a96);
+  background: -o-linear-gradient(#ff8480, #ff9a96);
+  background: linear-gradient(#ff8480, #ff9a96);
+}

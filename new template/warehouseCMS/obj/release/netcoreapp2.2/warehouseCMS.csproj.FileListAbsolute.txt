@@ -40,3 +40,6 @@ C:\Users\Administrator\Documents\Visual Code\warehouseCMS\obj\release\netcoreapp
 C:\Users\Administrator\Documents\Visual Code\warehouseCMS\obj\release\netcoreapp2.2\warehouseCMS.dll
 C:\Users\Administrator\Documents\Visual Code\warehouseCMS\obj\release\netcoreapp2.2\warehouseCMS.pdb
 C:\Users\Administrator\Documents\Visual Code\warehouseCMS\obj\release\netcoreapp2.2\warehouseCMS.csproj.CopyComplete
+C:\Users\Administrator\Documents\Visual Code\warehouseCMS\obj\release\netcoreapp2.2\Razor\Views\Account\ErrorPage.g.cshtml.cs
+C:\Users\Administrator\Documents\Visual Code\warehouseCMS\obj\release\netcoreapp2.2\Razor\Views\Home\ErrorPage.g.cshtml.cs
+C:\Users\Administrator\Documents\Visual Code\warehouseCMS\obj\release\netcoreapp2.2\Razor\Views\WareHouse\ErrorPage.g.cshtml.cs
