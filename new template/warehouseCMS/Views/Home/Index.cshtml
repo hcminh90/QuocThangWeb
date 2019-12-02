@@ -67,6 +67,12 @@
                             @{
                                 var report = ViewData["Report"] as DbFetchOutData;
                                 var reportDT = report.Data;
+                                var amount_tran_xuat = "0";
+                                var total_pay_xuat = "0";
+                                var total_dept_xuat = "0";
+                                var amount_tran_nhap = "0";
+                                var total_pay_nhap = "0";
+                                var total_dept_nhap = "0";
                                 int nhapkho = -1;
                                 int xuatkho = -1;
                                 int ik = 0;
@@ -80,12 +86,22 @@
                                     }
                                     ik++;
                                 }
+                                if(nhapkho != -1){
+                                    amount_tran_nhap = string.Format("{0:#,0}", Convert.ToInt32(reportDT[nhapkho]["AMOUNT_TRAN"]));
+                                    total_pay_nhap = string.Format("{0:#,0}", Convert.ToInt32(reportDT[nhapkho]["TOTAL_PAY"]));
+                                    total_dept_nhap = string.Format("{0:#,0}", Convert.ToInt32(reportDT[nhapkho]["TOTAL_DEPT"]));
+                                }
+                                if(xuatkho != -1){
+                                    amount_tran_xuat = string.Format("{0:#,0}", Convert.ToInt32(reportDT[xuatkho]["AMOUNT_TRAN"]));
+                                    total_pay_xuat = string.Format("{0:#,0}", Convert.ToInt32(reportDT[xuatkho]["TOTAL_PAY"]));
+                                    total_dept_xuat = string.Format("{0:#,0}", Convert.ToInt32(reportDT[xuatkho]["TOTAL_DEPT"]));
+                                }
                             }
                             <table border=0 width="100%">
                                 <tr><td colspan=4 style="height:20px;font-weight: bold;">Nhập kho</td></tr>
-                                <tr><td style="height:20px;">Hóa đơn: <b>@reportDT[nhapkho]["AMOUNT_TRAN"]</b></td><td>Đã thanh toán: @reportDT[nhapkho]["TOTAL_PAY"] <i class="ccy">VND</i></td><td>Nợ: @reportDT[nhapkho]["TOTAL_DEPT"] <i class="ccy">VND</i></td><td><a href="#">Chi tiết</a></td></tr>
+                                <tr><td style="height:20px;">Hóa đơn: <b>@amount_tran_nhap</b></td><td>Đã thanh toán: @total_pay_nhap <i class="ccy">VND</i></td><td>Nợ: @total_dept_nhap <i class="ccy">VND</i></td><td><a href="#">Chi tiết</a></td></tr>
                                 <tr><td colspan=4 style="height:20px;font-weight: bold;">Xuất kho</td></tr>
-                                <tr><td style="height:20px;">Hóa đơn: <b>@reportDT[xuatkho]["AMOUNT_TRAN"]</b></td><td>Đã thanh toán: @reportDT[xuatkho]["TOTAL_PAY"] <i class="ccy">VND</i></td><td>Nợ: @reportDT[xuatkho]["TOTAL_DEPT"] <i class="ccy">VND</i></td><td><a href="#">Chi tiết</a></td></tr>
+                                <tr><td style="height:20px;">Hóa đơn: <b>@amount_tran_xuat</b></td><td>Đã thanh toán: @total_pay_xuat <i class="ccy">VND</i></td><td>Nợ: @total_dept_xuat <i class="ccy">VND</i></td><td><a href="#">Chi tiết</a></td></tr>
                             </table>
                             <div style="font-weight: bold;">&nbsp;</div>
                             <table border=0 width="100%">

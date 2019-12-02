@@ -1,0 +1,288 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+/*html {
+  font-size: 12px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}*/
+
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  min-height: 100%;
+  height: 100%;
+}
+
+body {
+  position: relative;
+  min-height: 100%;
+  width: 100%;
+  font-family: 'lucida grande',tahoma,arial,sans-serif;
+  font-size: 11px;
+  font: 500 12px Arial;
+  height: 100%;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  line-height: 60px; /* Vertically center the text there */
+}
+.loginPanel{
+  height: 200px;
+  width: 400px;
+  border: 1px solid #696;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  -webkit-box-shadow: #666 0px 2px 3px;
+  -moz-box-shadow: #666 0px 2px 3px;
+  box-shadow: #666 0px 2px 3px;
+  behavior: url(/css/pie/PIE.htc);
+  padding: 2px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.loginTitle{
+  height: 30px;
+  width: 100%;
+  background: #D6EC83;
+  background: -webkit-gradient(linear, 0 0, 0 bottom, from(#D6EC83), to(#8FE269));
+  background: -webkit-linear-gradient(#D6EC83, #8FE269);
+  background: -moz-linear-gradient(#D6EC83, #8FE269);
+  background: -ms-linear-gradient(#D6EC83, #8FE269);
+  background: -o-linear-gradient(#D6EC83, #8FE269);
+  background: linear-gradient(#D6EC83, #8FE269);
+  -pie-background: linear-gradient(#D6EC83, #8FE269);
+  behavior: url(/css/pie/PIE.htc);
+  -webkit-border-radius: 6px 6px 0px 0px;
+  -moz-border-radius: 6px 6px 0px 0px;
+  border-radius: 6px 6px 0px 0px;
+}
+.title{
+  height: 30px;
+  width: 100%;
+  padding: 2px;
+  background: #D6EC83;
+  background: -webkit-gradient(linear, 0 0, 0 bottom, from(#D6EC83), to(#8FE269));
+  background: -webkit-linear-gradient(#D6EC83, #8FE269);
+  background: -moz-linear-gradient(#D6EC83, #8FE269);
+  background: -ms-linear-gradient(#D6EC83, #8FE269);
+  background: -o-linear-gradient(#D6EC83, #8FE269);
+  background: linear-gradient(#D6EC83, #8FE269);
+  -pie-background: linear-gradient(#D6EC83, #8FE269);
+  behavior: url(/css/pie/PIE.htc);
+  -webkit-border-radius: 6px 6px 0px 0px;
+  -moz-border-radius: 6px 6px 0px 0px;
+  border-radius: 6px 6px 0px 0px;
+}
+.button{
+  padding: 3px 10px 3px 10px;
+  border: 1px solid #696;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  -webkit-box-shadow: #666 0px 2px 3px;
+  -moz-box-shadow: #666 0px 2px 3px;
+  box-shadow: #666 0px 2px 3px;
+  behavior: url(/css/pie/PIE.htc);
+  background: #D6EC83;
+  background: -webkit-gradient(linear, 0 0, 0 bottom, from(#D6EC83), to(#8FE269));
+  background: -webkit-linear-gradient(#D6EC83, #8FE269);
+  background: -moz-linear-gradient(#D6EC83, #8FE269);
+  background: -ms-linear-gradient(#D6EC83, #8FE269);
+  background: -o-linear-gradient(#D6EC83, #8FE269);
+  background: linear-gradient(#D6EC83, #8FE269);
+  -pie-background: linear-gradient(#D6EC83, #8FE269);
+}
+.textbox{
+  border: 1px solid #696;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  behavior: url(/css/pie/PIE.htc);
+  padding: 0px 10px 0px 10px;
+}
+.error-msg{
+  border: 1px solid #C63B2F;
+  background-color: #EAA099;
+  color: #C63B2F;
+}
+.label-page{
+  text-align: left;
+  border-bottom: 1px solid #696;
+  margin-bottom: 5px;
+}
+.input-area{
+  text-align: left;
+  float: left;
+  width: 81.5%;
+}
+
+.form-panel{
+  border: 1px solid #696;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  -webkit-box-shadow: #666 0px 2px 3px;
+  -moz-box-shadow: #666 0px 2px 3px;
+  box-shadow: #666 0px 2px 3px;
+  behavior: url(/css/pie/PIE.htc);
+  padding: 2px;
+  margin-bottom: 10px;
+}
+
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 5px;
+}
+
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 5px;
+}
+
+.form-row-r:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.input-area input[type="text"], select{
+  border: 1px solid #696;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  behavior: url(/css/pie/PIE.htc);
+  padding: 0px 10px 0px 10px;
+}
+
+.input-area input[type="submit"], input[type="button"]{
+  padding: 3px 10px 3px 10px;
+  border: 1px solid #696;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  -webkit-box-shadow: #666 0px 2px 3px;
+  -moz-box-shadow: #666 0px 2px 3px;
+  box-shadow: #666 0px 2px 3px;
+  behavior: url(/css/pie/PIE.htc);
+  background: #D6EC83;
+  background: -webkit-gradient(linear, 0 0, 0 bottom, from(#D6EC83), to(#8FE269));
+  background: -webkit-linear-gradient(#D6EC83, #8FE269);
+  background: -moz-linear-gradient(#D6EC83, #8FE269);
+  background: -ms-linear-gradient(#D6EC83, #8FE269);
+  background: -o-linear-gradient(#D6EC83, #8FE269);
+  background: linear-gradient(#D6EC83, #8FE269);
+  -pie-background: linear-gradient(#D6EC83, #8FE269);
+}
+
+.backbox{
+  border: 1px solid #616161;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  behavior: url(/css/pie/PIE.htc);
+  background: #8a8a8a;
+  background: -webkit-gradient(linear, 0 0, 0 bottom, from(#8a8a8a), to(#b3b3b3));
+  background: -webkit-linear-gradient(#8a8a8a, #b3b3b3);
+  background: -moz-linear-gradient(#8a8a8a, #b3b3b3);
+  background: -ms-linear-gradient(#8a8a8a, #b3b3b3);
+  background: -o-linear-gradient(#8a8a8a, #b3b3b3);
+  background: linear-gradient(#8a8a8a, #b3b3b3);
+  -pie-background: linear-gradient(#8a8a8a, #b3b3b3);
+}
+
+.menu{
+  float: left;
+  border: 1px solid #696;
+  margin-right: 5px;
+  width: 200px;
+  text-align: left;
+  border: 1px solid #696;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  -webkit-box-shadow: #666 0px 2px 3px;
+  -moz-box-shadow: #666 0px 2px 3px;
+  box-shadow: #666 0px 2px 3px;
+  behavior: url(/css/pie/PIE.htc);
+  padding: 2px;
+}
+.menu-content{
+  padding:2px;
+}
+.frmtable{
+  padding: 3px 0px 3px 0px;
+}
+.tbl_header{
+  background-color: #b1d696;
+  font-weight: bold;
+}
+
+.frmtable table tr td{
+  border: 1px solid #b1d696;
+}
+
+.submit-area{
+  padding-top: 5px;
+  text-align: center;
+}
+.success-msg{
+  background-color: #b1d696;
+  border: 1px solid #696;
+}
+#hieghtlighttbl th{
+  background-color:#bebebe;
+  border:1px outset #808080;
+  font-weight: normal;
+}
+#hieghtlighttbl tr:nth-child(even){background-color: #eaeaea;}
+#hieghtlighttbl tr:hover {background-color: #e1ffd4;}
+
+.qtHeader{
+  background: #d0d0d0;
+  background: -webkit-gradient(linear, 0 0, 0 right, from(#d0d0d0), to(#969696));
+  background: -webkit-linear-gradient(to right,#d0d0d0, #969696);
+  background: -moz-linear-gradient(to right,#d0d0d0, #969696);
+  background: -ms-linear-gradient(to right, #d0d0d0, #969696);
+  background: -o-linear-gradient(to right, #d0d0d0, #969696);
+  background: linear-gradient(to right, #d0d0d0, #969696);
+}
+
+
