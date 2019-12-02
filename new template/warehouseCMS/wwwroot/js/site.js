@@ -175,3 +175,29 @@ function AddRow(tblid, data) {
         row.insertCell(i).innerHTML = data[i];
     }
 }
+function number_format(data, el){
+    var rstring = "";
+    var dt = data;
+    var nxt = true;
+    while (nxt) {
+        if(dt.length > 3){
+            if(rstring == "" || rstring == null){
+                rstring = dt.substring(0, 3);
+            }
+            else{
+                rstring = rstring + "," + dt.substring(0, 3);
+            }
+            dt = dt.substring(3);
+        }
+        else{
+            if(rstring == "" || rstring == null){
+                rstring = dt;
+            }
+            else{
+                rstring = rstring + "," + dt;
+            }
+            nxt = false;
+        }
+    }
+    document.getElementById(el).innerHTML = rstring;
+}

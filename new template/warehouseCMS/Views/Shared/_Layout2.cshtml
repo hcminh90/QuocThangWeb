@@ -47,10 +47,10 @@
                                     <tr>
                                         <td></td>
                                         <td  style="width:20px;">
-                                            <a href="#"><i class="fa fa-bell" ></i></a>
+                                            <a href="#" style="color:#dc3545;"><i class="fa fa-bell" ></i></a>
                                         </td>
                                         <td  style="width:125px;text-align: center;">
-                                            <a asp-area="" asp-controller="Account" asp-action="Index"><i class="fa fa-user-circle-o"></i> Hello @loggedInUser.Identity.Name!</a>
+                                            <a asp-area="" asp-controller="Account" asp-action="Index" style="color:#fff;"><i class="fa fa-user-circle-o"></i> Hello @loggedInUser.Identity.Name!</a>
                                         </td>
                                         <td style="width:65px;">
                                             <form method = "post" asp-controller = "Account" asp-action = "Logout">

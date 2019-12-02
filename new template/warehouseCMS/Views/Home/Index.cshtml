@@ -62,18 +62,35 @@
                         });  
                     </script> 
                     <div class="obj01 qtBoxNew animated zoomIn">
-                        <div class="qtTitle2">Thống kê từ ngày 1/9/2019 đến ngày 30/11/2019</div>
+                        <div class="qtTitle2">Thống kê từ ngày @ViewBag.StartDate đến ngày hôm nay</div>
                         <div>
+                            @{
+                                var report = ViewData["Report"] as DbFetchOutData;
+                                var reportDT = report.Data;
+                                int nhapkho = -1;
+                                int xuatkho = -1;
+                                int ik = 0;
+                                @foreach (var row in reportDT)
+                                {
+                                    if(row["TRANSACTION"]=="buy"){
+                                        nhapkho = ik;
+                                    }
+                                    if(row["TRANSACTION"]=="sell"){
+                                        xuatkho = ik;
+                                    }
+                                    ik++;
+                                }
+                            }
                             <table border=0 width="100%">
                                 <tr><td colspan=4 style="height:20px;font-weight: bold;">Nhập kho</td></tr>
-                                <tr><td style="height:20px;">Hóa đơn: 100</td><td>Đã thanh toán: 50.000.000 <i>VND</i></td><td>Nợ: 15.000.000 <i>VND</i></td><td><a href="#">Chi tiết</a></td></tr>
+                                <tr><td style="height:20px;">Hóa đơn: <b>@reportDT[nhapkho]["AMOUNT_TRAN"]</b></td><td>Đã thanh toán: @reportDT[nhapkho]["TOTAL_PAY"] <i class="ccy">VND</i></td><td>Nợ: @reportDT[nhapkho]["TOTAL_DEPT"] <i class="ccy">VND</i></td><td><a href="#">Chi tiết</a></td></tr>
                                 <tr><td colspan=4 style="height:20px;font-weight: bold;">Xuất kho</td></tr>
-                                <tr><td style="height:20px;">Hóa đơn: 80</td><td>Đã thanh toán: 40.000.000 <i>VND</i></td><td>Nợ: 10.000.000 <i>VND</i></td><td><a href="#">Chi tiết</a></td></tr>
+                                <tr><td style="height:20px;">Hóa đơn: <b>@reportDT[xuatkho]["AMOUNT_TRAN"]</b></td><td>Đã thanh toán: @reportDT[xuatkho]["TOTAL_PAY"] <i class="ccy">VND</i></td><td>Nợ: @reportDT[xuatkho]["TOTAL_DEPT"] <i class="ccy">VND</i></td><td><a href="#">Chi tiết</a></td></tr>
                             </table>
                             <div style="font-weight: bold;">&nbsp;</div>
                             <table border=0 width="100%">
-                                <tr><td style="font-weight: bold;width:80px;height:20px;">Doanh thu:</td><td style="font-weight: bold;">10.000.000 <i>VND</i></td><td></td></tr>
-                                <tr><td style="font-weight: bold;height:20px;">Công nợ:</td><td style="font-weight: bold;">5.000.000 <i>VND</i></td><td></td></tr>
+                                <tr><td style="font-weight: bold;width:80px;height:20px;">Doanh thu:</td><td style="font-weight: bold;">Đang cập nhật</td><td></td></tr>
+                                <tr><td style="font-weight: bold;height:20px;">Công nợ:</td><td style="font-weight: bold;">Đang cập nhật</td><td></td></tr>
                             </table> 
                         </div>
                     </div>
@@ -119,7 +136,7 @@
                 </div>
             </td>
             <td style="width:300px;">
-                <div class="tonkho qtBox rigthcol">
+                <div class="tonkho qtBox rigthcol animated fadeInLeft">
                     <div class="qtBoxTitle">
                         Tồn kho
                     </div>
@@ -133,10 +150,10 @@
                         @foreach (var row in proDT)
                         {
                             @if(i == 0){
-                                <tr><td style="padding-left:3px;border-top:1px solid #bebebe;border-left:1px solid #bebebe;border-bottom:1px solid #bebebe;border-rigth:1px solid #bebebe;">@row["PROD_NAME"]</td><td style="border-top:1px solid #bebebe;border-right:1px solid #bebebe;border-bottom:1px solid #bebebe;border-rigth:1px solid #bebebe;"><span style="font-weight: bold;color:#9c0000">@row["PROD_AMOUNT"]</span> @row["PROD_UNIT"]</td></tr>
+                                <tr><td style="padding-left:3px;height:23px;border-top:1px solid #bebebe;border-left:1px solid #bebebe;border-bottom:1px solid #bebebe;border-rigth:1px solid #bebebe;">@row["PROD_NAME"]</td><td style="border-top:1px solid #bebebe;border-right:1px solid #bebebe;border-bottom:1px solid #bebebe;border-rigth:1px solid #bebebe;"><span style="font-weight: bold;color:#9c0000">@row["PROD_AMOUNT"]</span> @row["PROD_UNIT"]</td></tr>
                             }
                             else{
-                                <tr><td style="padding-left:3px;border-left:1px solid #bebebe;border-bottom:1px solid #bebebe;border-rigth:1px solid #bebebe;">@row["PROD_NAME"]</td><td style="border-right:1px solid #bebebe;border-bottom:1px solid #bebebe;border-rigth:1px solid #bebebe;"><span style="font-weight: bold;color:#9c0000">@row["PROD_AMOUNT"]</span> @row["PROD_UNIT"]</td></tr>
+                                <tr><td style="padding-left:3px;height:23px;border-left:1px solid #bebebe;border-bottom:1px solid #bebebe;border-rigth:1px solid #bebebe;">@row["PROD_NAME"]</td><td style="border-right:1px solid #bebebe;border-bottom:1px solid #bebebe;border-rigth:1px solid #bebebe;"><span style="font-weight: bold;color:#9c0000">@row["PROD_AMOUNT"]</span> @row["PROD_UNIT"]</td></tr>
                             }
                             i = i + 1;
                         }
@@ -162,9 +179,9 @@
             classToAdd: 'visible animated zoomIn', // Class to add to the elements when they are visible
             offset: 100    
         });*/
-        jQuery('.rigthcol').addClass("hidden").viewportChecker({
+        /*jQuery('.rigthcol').addClass("hidden").viewportChecker({
             classToAdd: 'visible animated fadeInLeft', // Class to add to the elements when they are visible
             offset: 100    
-        });
+        });*/
     });            
 </script>

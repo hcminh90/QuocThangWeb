@@ -56,6 +56,75 @@ namespace warehouseCMS.Repository
             return OutData;
         }
 
+        public DbFetchOutData ExecuteReaderProcedure(string sqlText, List<ParamObj> param)
+        {
+            DbFetchOutData OutData = null; 
+            DbConnection connection = null;
+            DbCommand cmd = null;
+            try
+            {
+                connection = _context.Database.GetDbConnection();
+                connection.Open();
+                cmd = connection.CreateCommand();
+                cmd.CommandText = sqlText;
+                foreach(var data in param){
+                    var pr = cmd.CreateParameter();
+                    pr.ParameterName = "@" + data.Name;
+                    if(data.Direction == ParameterDirection.Input)
+                    {
+                        if(data.Type == DbType.Date)
+                        {
+                            pr.Value = Convert.ToDateTime(data.Value);
+                        }
+                        else
+                        {
+                            pr.Value = data.Value;
+                        }
+                        
+                    }
+                    pr.DbType = data.Type;
+                    pr.Direction = data.Direction;
+                    cmd.Parameters.Add(pr);
+                }
+                Console.WriteLine("Call Pro Query procedure");
+                cmd.CommandType = CommandType.StoredProcedure;
+                //cmd.ExecuteNonQuery();
+                var reader = cmd.ExecuteReader();
+                Console.WriteLine("Execute Pro Query DONE");
+                OutData = BuildOutputReader(reader);
+                reader.Close();
+                /*foreach(var data in param){
+                    
+                    if(data.Direction == ParameterDirection.Output)
+                    {
+                        var val = Convert.ToString(cmd.Parameters["@"+data.Name].Value);
+                        ResultObj rs = new ResultObj(data.Name, val);
+                        result.Add(rs);
+                    }
+                }*/
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Exception: " + e.Message);
+                //_logger.LogError(e.Message);
+            }
+            finally{
+                try
+                {
+                    if(cmd != null)
+                    {
+                        cmd.Dispose();
+                    }
+                    connection.Close();
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine("Exception: " + e.Message);
+                }
+            }
+            return OutData;
+        }
+
         public List<ResultObj> ExecuteProcedure(string sqlText, List<ParamObj> param)
         {
             List<ResultObj> result = new List<ResultObj>();

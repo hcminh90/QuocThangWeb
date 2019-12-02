@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -44,6 +45,16 @@ namespace warehouseCMS.Controllers
             param = new Dictionary<string, string>();
             outdata = _da.FecthQuery(sqlText, param);
             ViewData["Customers"] = outdata;
+
+            DateTime now = DateTime.Now;
+            string sDate = now.Month-1+"/01/"+now.Year;
+            ViewBag.StartDate = Convert.ToDateTime(sDate).ToString("dd/MM/yyyy");
+            List<ParamObj> paramPro = new List<ParamObj>();
+            paramPro.Add(new ParamObj("start_date",sDate,DbType.Date, ParameterDirection.Input));
+            paramPro.Add(new ParamObj("end_date",DateTime.Now.ToString(),DbType.Date, ParameterDirection.Input));
+            DbFetchOutData outdataPro = _da.ExecuteReaderProcedure("ProcDashBoard", paramPro);
+            ViewData["Report"] = outdataPro;
+            //Console.WriteLine("AMOUNT_TRAN: " + outdataPro.Data[0]["AMOUNT_TRAN"]);
 
             return View();
         }

@@ -9,5 +9,7 @@ namespace warehouseCMS.Data
          void ExecuteQuery(string queryType, string sqlText, Dictionary<string, string> param, ref DbFetchOutData outdata);
 
          List<ResultObj> ExecuteProcedure(string sqlText, List<ParamObj> param);
+
+         DbFetchOutData ExecuteReaderProcedure(string sqlText, List<ParamObj> param);
     }
 }
