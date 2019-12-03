@@ -13,17 +13,19 @@
             <div class="qtTitle2">Danh sách các sản phẩm</div>
             <div class="qtBoxContent2">
                 <table border=0 cellpadding=0 cellspacing=0 width="100%" height="100%" class="tblshow">
-                    <tr><th style="text-align:center;width:100px;">Mã sản phẩm</th><th>Tên</th><th>Mô tả</th><th>Đơn vị tính</th><th>Giá</th><th>Số lượng</th><th>User cập nhật</th><th>Thời gian cập nhật</th><th style="text-align:center;width:80px;"></th></tr>
+                    <tr>
+                        <!--<th style="text-align:center;width:100px;">Mã sản phẩm</th>-->
+                    <th>Tên sản phẩm</th><th>Mô tả</th><th>Đơn vị tính</th><th>Giá</th><th>Số lượng</th><th>User cập nhật</th><th>Thời gian cập nhật</th><th style="text-align:center;width:80px;"></th></tr>
                     @foreach (var row in data)
                     {
                         <tr>
-                            <td style="text-align:center">@row["PROD_ID"]</td>
+                            <!--<td style="text-align:center">@row["PROD_ID"]</td>-->
                             <td>@row["PROD_NAME"]</td>
                             <td>@row["PROD_DESC"]</td>
                             <td>@row["PROD_UNIT"]</td>
                             <td>@row["PROD_UNIT_PRICE"]</td>
                             <td>@row["PROD_AMOUNT"]</td>
-                            <td>@row["PROD_LAST_USER_CHANGED"]</td>
+                            <td>@row["USER_NAME"]</td>
                             <td>@row["PROD_LAST_TIME_CHANGED"]</td>
                             <td style="text-align:center"><a href="#">Cập nhật</a></td>
                         </tr>

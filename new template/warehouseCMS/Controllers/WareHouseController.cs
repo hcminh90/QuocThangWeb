@@ -39,7 +39,7 @@ namespace warehouseCMS.Controllers
             }
             ViewData["Customers"] = outdata;
 
-            sqlText = "select * from products a;";
+            sqlText = "select * from products a order by 2;";
             param = new Dictionary<string, string>();
             outdata = _da.FecthQuery(sqlText, param, ref exp);
             if(exp != "000000"){
@@ -160,7 +160,7 @@ namespace warehouseCMS.Controllers
             }
             ViewData["Customers"] = outdata;
 
-            sqlText = "select * from products a;";
+            sqlText = "select * from products a order by 2;";
             param = new Dictionary<string, string>();
             outdata = _da.FecthQuery(sqlText, param, ref exp);
             if(exp != "000000"){
@@ -298,7 +298,7 @@ namespace warehouseCMS.Controllers
         public IActionResult ProductShow()
         {
             string exp = "";
-            string sqlText = "select * from products a;";
+            string sqlText = "select a.*, (select  USER_NAME from qt.users where user_id = a.PROD_LAST_USER_CHANGED) USER_NAME from products a order by 2;";
             Dictionary<string, string> param = new Dictionary<string, string>();
             DbFetchOutData outdata = _da.FecthQuery(sqlText, param, ref exp);
             if(exp != "000000"){
