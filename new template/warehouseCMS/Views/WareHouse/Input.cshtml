@@ -67,7 +67,7 @@
                                 <option value="">--Lựa chọn</option>
                                 @foreach (var row in dtProd)
                                 {
-                                    <option value='@row["PROD_ID"]-@row["PROD_UNIT_PRICE"]-@row["PROD_UNIT"]-@row["PROD_NAME"]-@row["PROD_DESC"]'>@row["PROD_NAME"]-@row["PROD_DESC"]</option>
+                                    <option value='@row["PROD_ID"]-@row["PROD_UNIT_PRICE"]-@row["PROD_UNIT"]-@row["PROD_NAME"]-@row["PROD_DESC"]'>@row["PROD_NAME"] - @row["PROD_DESC"]</option>
                                 }
                                 </select>
                             </td>
