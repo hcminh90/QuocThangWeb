@@ -111,13 +111,29 @@ function deleteOrder(el){
 
 function prod_change(){
     var product = document.getElementById("ProductID");
-    var prodPrice = product.value.split("-")[1];
-    var Price = document.getElementById("Price");
-    Price.value = prodPrice;
-    var pri = document.getElementById("pri");
-    pri.value= prodPrice;
     var unit = document.getElementById("unit");
-    unit.value=product.value.split("-")[2];
+    var pri = document.getElementById("pri");
+    var Price = document.getElementById("Price");
+    if(product.value == null || product.value == undefined ||  product.value.length == 0){
+        /*document.getElementById("proDesc").innerHTML = 
+        "<div style='height:24px;padding-top:5px;' id='proshow'><i>Vui lòng lựa chọn mặt hàng để giao dịch!</i></div>";
+        */
+        Price.value = 0;
+        pri.value= "";
+        unit.value= "";
+    }
+    else{
+        var prodPrice = product.value.split("-")[1];
+        Price.value = prodPrice;
+        pri.value= prodPrice;
+        unit.value=product.value.split("-")[2];
+        /*document.getElementById("proDesc").innerHTML = 
+        "<div style='height:24px;padding-top:5px;' id='proshow'>" + product.value.split("-")[3] + "-" + product.value.split("-")[4] + "</div>";
+        animateCSS("proshow","fadeInDown");
+        document.getElementById("prolabel").innerHTML = 
+        "<div style='height:24px;padding-top:5px;' id='proshowlabel'>Thông tin mặt hàng: </div>";
+        */
+    }
 }
 
 function showCus(){

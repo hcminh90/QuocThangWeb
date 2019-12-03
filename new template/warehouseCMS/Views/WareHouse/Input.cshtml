@@ -67,13 +67,17 @@
                                 <option value="">--Lựa chọn</option>
                                 @foreach (var row in dtProd)
                                 {
-                                    <option value='@row["PROD_ID"]-@row["PROD_UNIT_PRICE"]-@row["PROD_UNIT"]'>@row["PROD_NAME"]</option>
+                                    <option value='@row["PROD_ID"]-@row["PROD_UNIT_PRICE"]-@row["PROD_UNIT"]-@row["PROD_NAME"]-@row["PROD_DESC"]'>@row["PROD_NAME"]-@row["PROD_DESC"]</option>
                                 }
                                 </select>
                             </td>
                             <td>Giá:</td><td><input type="text" id="pri" disabled></td>
                             <td>Đơn vị tính:</td><td><input type="text" id="unit" disabled></td>
                             <script type="text/javascript">$("#pri").maskMoney({thousands:',', allowZero: true, precision: 0, allowEmpty:false, suffix:""});</script>
+                        </tr>
+                        <tr>
+                            <td id="prolabel"></td>
+                            <td colspan="5" id="proDesc"></td>
                         </tr>
                         <tr>
                             <td style="height:23px;">Số lượng <span class="qtqoute">(*)</span>:</td>
