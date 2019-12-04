@@ -80,9 +80,11 @@
                             <td colspan="5" id="proDesc"></td>
                         </tr>
                         <tr>
-                            <td style="height:23px;">Số lượng <span class="qtqoute">(*)</span>:</td>
+                            <td style="height:23px;">Số lượng thành phẩm<span class="qtqoute">(*)</span>:</td>
                             <td><input type="text" id="Amount" placeholder="Số lượng.." autocomplete="off" onblur="CalcPrice();"></td>
                             <script type="text/javascript">$("#Amount").maskMoney({thousands:',', allowZero: true, precision: 0, allowEmpty:false, suffix:""});</script>
+                            <td>Số lượng gốc:</td><td><input type="text" id="pre_Amount"></td>
+                            <script type="text/javascript">$("#pre_Amount").maskMoney({thousands:',', allowZero: true, precision: 0, allowEmpty:false, suffix:""});</script>
                         </tr>
                         <tr>
                             <td style="height:23px;">Đơn giá <span class="qtqoute">(*)</span>:</td>
@@ -118,8 +120,11 @@
                 <div class="qtTitle2">Thông tin đơn hàng</div>
                 <div class="frmtable">
                     <table id="tbl_data" class ="qthltbl" width="100%" cellpadding=0 cellspacing=0>
-                        <tr><th style="text-align:center">Stt</th><th>Tên Hàng</th><th>Số Lượng</th><th>Số Tiền</th><th>Đã Thanh Toán</th><th style="text-align:center;width:100px;"></th></tr>
+                        <tr><th style="text-align:center">Stt</th><th>Tên Hàng</th><th>Số Lượng</th><th>Đơn giá</th><th>Số tiền</th><th style="text-align:center;width:100px;"></th></tr>
                     </table>
+                    <div id="tonghop">
+
+                    </div>
                 </div>
             </div>
 

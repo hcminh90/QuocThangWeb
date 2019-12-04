@@ -78,7 +78,7 @@ namespace warehouseCMS.Controllers
             string[] trans = OrderInfo.Split(';');
             DbFetchOutData outdata = new DbFetchOutData();
             Dictionary<string, string> param;
-            string  sqlText = "INSERT INTO transactions(TAX_ID, PROD_ID, CUST_ID, USER_ID, TIMESTAMP, UNIT_PRICE, UNIT_AMOUNT, UNIT_PAY, TRANSACTION, TRANSACTION_DESC, PROD_UNIT_PRICE) values(@TAX_ID, @PROD_ID, @CUST_ID, @USER_ID, @TIMESTAMP, @UNIT_PRICE, @UNIT_AMOUNT, @UNIT_PAY, @TRANSACTION, @TRANSACTION_DESC, @PROD_UNIT_PRICE)";
+            string  sqlText = "INSERT INTO transactions(TAX_ID, PROD_ID, CUST_ID, USER_ID, TIMESTAMP, UNIT_PRICE, UNIT_AMOUNT, UNIT_PAY, TRANSACTION, TRANSACTION_DESC, PROD_UNIT_PRICE, UNIT_PRE_AMOUNT) values(@TAX_ID, @PROD_ID, @CUST_ID, @USER_ID, @TIMESTAMP, @UNIT_PRICE, @UNIT_AMOUNT, @UNIT_PAY, @TRANSACTION, @TRANSACTION_DESC, @PROD_UNIT_PRICE, @UNIT_PRE_AMOUNT)";
             if(trans.Length>0){
                 List<ParamObj> paramPro = new List<ParamObj>();
                 ParamObj par = new ParamObj("outtax_id","",DbType.String, ParameterDirection.Output);
@@ -113,6 +113,7 @@ namespace warehouseCMS.Controllers
                     param.Add("TRANSACTION","buy");
                     param.Add("TRANSACTION_DESC","buy");
                     param.Add("PROD_UNIT_PRICE",fields[5]);
+                    param.Add("UNIT_PRE_AMOUNT",fields[6]);
                     _da.ExecuteQuery("INS", sqlText, param, ref outdata, ref exp);
                     if(exp != "000000"){
                         ViewBag.Error = exp;
@@ -309,6 +310,53 @@ namespace warehouseCMS.Controllers
             return View();
         }
 
+        public IActionResult ProductUpdate(string id)
+        {
+            Console.WriteLine("minhhc pro_id: " + id);
+            string exp = "";
+            string sqlText = "select a.*, (select  USER_NAME from qt.users where user_id = a.PROD_LAST_USER_CHANGED) USER_NAME from products a where PROD_ID = @PROD_ID;";
+            Dictionary<string, string> param = new Dictionary<string, string>();
+            param.Add("PROD_ID",id);
+            DbFetchOutData outdata = _da.FecthQuery(sqlText, param, ref exp);
+            if(exp != "000000"){
+                ViewBag.Error = exp;
+                return View("ErrorPage");
+            }
+            ViewData["Products"] = outdata;
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ProductUpdate(string proId, string ProdName, string ProdDesc, string ProdIUnit, string ProdPrice)
+        {
+            Console.Write("minhhc update proId:"+ proId);
+            string exp = "";
+            var loggedInUser = HttpContext.User;
+            var user_name = loggedInUser.Identity.Name;
+            var user_id = GetUserID(user_name);
+            DbFetchOutData outdata = new DbFetchOutData();
+            Dictionary<string, string> param;
+            string  sqlText = "UPDATE products SET PROD_NAME = @PROD_NAME, PROD_DESC = @PROD_DESC, PROD_UNIT = @PROD_UNIT, PROD_UNIT_PRICE = @PROD_UNIT_PRICE, PROD_LAST_USER_CHANGED = @PROD_LAST_USER_CHANGED, PROD_LAST_TIME_CHANGED = @PROD_LAST_TIME_CHANGED WHERE PROD_ID = @PROD_ID;";
+            param = new Dictionary<string, string>();
+            param.Add("PROD_ID",proId);
+            param.Add("PROD_NAME",ProdName);
+            param.Add("PROD_DESC",ProdDesc);
+            param.Add("PROD_UNIT",ProdIUnit);
+            param.Add("PROD_UNIT_PRICE",ProdPrice.Replace(",", ""));
+            param.Add("PROD_LAST_USER_CHANGED",user_id);
+            param.Add("PROD_LAST_TIME_CHANGED",DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            _da.ExecuteQuery("UPD", sqlText, param, ref outdata, ref exp);
+            if(exp != "000000"){
+                ViewBag.Error = exp;
+                return View("ErrorPage");
+            }
+            ViewBag.Error="SUCCESS";
+            ViewBag.BackController = "WareHouse";
+            ViewBag.BackAction = "ProductShow";
+
+            return View("ResponeProcess");
+        }
+
         [HttpPost]
         public IActionResult Customer(string CusName, string TaxID, string CusAddr, string CusPhone, string CusEmail)
         {
@@ -348,7 +396,7 @@ namespace warehouseCMS.Controllers
             param.Add("PROD_NAME",ProdName);
             param.Add("PROD_DESC",ProdDesc);
             param.Add("PROD_UNIT",ProdIUnit);
-            param.Add("PROD_UNIT_PRICE",ProdPrice);
+            param.Add("PROD_UNIT_PRICE",ProdPrice.Replace(",", ""));
             param.Add("PROD_AMOUNT","0");
             param.Add("PROD_LAST_USER_CHANGED",user_id);
             param.Add("PROD_LAST_TIME_CHANGED",DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));

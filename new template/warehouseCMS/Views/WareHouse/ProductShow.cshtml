@@ -23,11 +23,12 @@
                             <td>@row["PROD_NAME"]</td>
                             <td>@row["PROD_DESC"]</td>
                             <td>@row["PROD_UNIT"]</td>
-                            <td>@row["PROD_UNIT_PRICE"]</td>
+                            <td id="proshow_@row["PROD_ID"]">@row["PROD_UNIT_PRICE"]</td>
+                            <script>document.getElementById("proshow_@row["PROD_ID"]").innerHTML = number_format("@row["PROD_UNIT_PRICE"]");</script>
                             <td>@row["PROD_AMOUNT"]</td>
                             <td>@row["USER_NAME"]</td>
                             <td>@row["PROD_LAST_TIME_CHANGED"]</td>
-                            <td style="text-align:center"><a href="#">Cập nhật</a></td>
+                            <td style="text-align:center"><a asp-area="" asp-controller="WareHouse" asp-action="ProductUpdate" asp-route-id="@row["PROD_ID"]">Cập nhật</a></td>
                         </tr>
                     }
                 </table>

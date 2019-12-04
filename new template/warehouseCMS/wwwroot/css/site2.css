@@ -204,9 +204,9 @@ body {
 }
 .qthltbl tr:hover {background-color: #e0f2f6;}
 
-.tblshow tr:hover {background-color: #f1f3f3;}
-
 .tblshow tr:nth-child(even){background-color: #edf6ff;}
+
+.tblshow tr:hover {background-color: #f1f3f3;}
 
 .tblshow tr th{
   background-color: lightblue;
